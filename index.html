@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link rel="shortcut icon" type="image" href="C.png">
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.6.0/dist/web3.min.js"></script>
+    <script src="index.js"></script>
+    <title>CryptoVerso</title>
+</head>
+<body>
+    <div class="section">
+        <div class='banner'>
+            <div class="conteudo">
+              <h2>CryptoVerso</h2>
+              <p>Junte-se ao <a href="https://discord.gg/eD8VZUnY" style="color:#9b9664;">CryptoVerso</a>
+                e tenha acesso a um novo mundo!</p>
+                <div class="botao" onclick="conectar()">Conectar Metamask</div>
+            </div>
+          </div>
+    </div>
+    <div class="section" style="display: none;" id="sec_compra">
+        <div class='banner'>
+            <div class="conteudo">
+                <h2>Comprar NFT</h2>
+                <div id="content">
+                    <img src alt="Imagem" id="nftimage1" width="200">
+                    <input type="text" id="walletInput" placeholder="Carteira">
+                    <input type="text" id="discordInput" placeholder="ID Discord">
+                    <ul id="precos"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section" style="display: none;" id="sec_owner">
+        <div class='banner'>
+            <div class="conteudo">
+                <h2>Minha NFT</h2>
+                <div id="content">
+                    <img src alt="Imagem" id="nftimage2" width="200">
+                    <input type="text" id="discordInput" placeholder="ID Discord">
+                    <ul id="precos"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

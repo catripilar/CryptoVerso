@@ -1,0 +1,112 @@
+html,body{
+    background: #333;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+.banner{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background:#dedfdc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.banner::before{
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    background:linear-gradient(to top,rgba(0,0,0,0.2),transparent);
+}
+.banner::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100px;
+    background:linear-gradient(to bottom,rgba(0,0,0,0.2),transparent);
+}
+.banner .conteudo{position: relative;max-width: 750px;text-align: center;}
+.banner .conteudo h2{
+    color: #313131;
+    font-family: 'Monument Ultrabold';
+    text-transform: uppercase;
+    box-shadow: 0 2px 0 #313131;
+    font-size: 50px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    line-height: 1.1em;
+    transition: .6s;
+}
+.banner .conteudo h2:hover{transform: translateY(-10px);letter-spacing: 5px;}
+.banner .conteudo p{color: #313131;font-size: 28px;letter-spacing: 2px;transition: .6s;}
+.banner .conteudo p:hover{transform: translateY(-10px);}
+.botao {
+    color: #fff;
+    background:#313131;
+    padding: 10px 30px;
+    display: inline-block;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: .6s;
+    cursor: pointer;
+    box-shadow: 0 2px rgba(0, 0, 0, 0.5);
+}
+.botao:hover{
+    background:#c5c08c;
+}
+ul {
+    list-style: none;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+}
+
+#nftimage {
+    max-width: 100%;
+    display: block;
+    margin: 0 auto;
+    padding: 10px; 
+    margin-bottom: 15px;
+}
+
+#content {
+    padding: 20px;
+    text-align: center;
+}
+
+#walletInput, #discordInput {
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+#walletInput, #discordInput {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#walletInput:focus, #discordInput:focus {
+    border: 1px solid #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.submitBtn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.submitBtn:hover {
+    opacity: 0.7;
+}
