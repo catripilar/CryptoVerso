@@ -43,7 +43,10 @@ async function conectar() {
                     tokenId = nfts[i].tokenId;
                     if (nfts[i].DiscordId != 0){
                         ID = nfts[i].DiscordId;
-                        console.log("ok")
+                        console.log("ok");
+                        if (nfts[i].expired > getCurrentUnixTime()){
+                            document.getElementById("Burning").style.display = "none";
+                        }
                         document.getElementById("discordId").style.display = "none";
                         document.getElementById("discordIdButton").style.display = "none";
                     }
@@ -149,4 +152,7 @@ function formatUnixTime(unixTime) {
     const hours = String(date.getHours()).padStart(2, '0');
 
     return `${year}/${month}/${day}:${hours}`;
+}
+function getCurrentUnixTime() {
+    return Math.floor(new Date().getTime() / 1000);
 }
