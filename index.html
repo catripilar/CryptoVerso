@@ -11,38 +11,52 @@
     <title>CryptoVerso</title>
 </head>
 <body>
-    <div class="section">
-        <div class='banner'>
-            <div class="conteudo">
-              <h2>CryptoVerso</h2>
-              <p>Junte-se ao <a href="https://discord.gg/eD8VZUnY" style="color:#9b9664;">CryptoVerso</a>
-                e tenha acesso a um novo mundo!</p>
-                <div class="botao" onclick="conectar()">Conectar Metamask</div>
-            </div>
-          </div>
-    </div>
-    <div class="section" style="display: none;" id="sec_compra">
-        <div class='banner'>
-            <div class="conteudo">
-                <h2>Comprar NFT</h2>
-                <img src alt="Imagem" class="nftimage" id="nftimage1" width="200">
-                <input type="text" class="TextInput" id="walletInput" placeholder="Carteira">
-                <input type="text" class="TextInput" id="discordInput" placeholder="ID Discord">
-                <ul id="precos"></ul>
+    <section class='banner'>
+        <div class="exmenu" onclick="exM()" id="menu" style="display: none;"></div>
+        <div class="exnav">
+            <div class="content">
+                <label for="Wallet">Carteira De Destino:</label>
+                <textarea class="TextInput" id="Wallet" name="Wallet" placeholder="Carteira De Destino" required="Carteira"></textarea>
+                <h2>Criar novo Plano</h2>
+                <textarea class="TextInput" id="URI" placeholder="URI da NFT" required="URI"></textarea>
+                <input type="text" oninput="avoidDots(this)" class="TextInput" id="Cargo" placeholder="ID do Cargo" required="Cargo">
+                <input type="text" oninput="avoidDots(this)" class="TextInput" id="Valor" placeholder="Valor em $USD" required="Valor">
+                
+                <div style="border-top: 1px solid #fff;">
+                    <div class="format">
+                        <label for="Decimal">Decimal do token:</label>
+                        <input type="number" class="TextInput" id="Decimal" name="Decimal" min="6" max="18" value="18">
+                    </div>
+                    <div class="format">
+                        <label for="Dias">Dias de Plano:</label>
+                        <input type="number" class="TextInput" id="Dias" name="Dias" min="1" max="1000" value="30">
+                    </div>
+                    <div class="format">
+                        <label for="Nivel">Nivel do NFT:</label>
+                        <input type="number" class="TextInput" id="Nivel" name="Nivel" min="1" max="100" value="1">
+                    </div>
+                    <div class="format">
+                        <label for="Acesso">Nivel de acesso:</label>
+                        <input type="number" class="TextInput" id="Acesso" name="Acesso" min="0" max="100" value="0">
+                    </div>
+                </div>
+                <div class="botao" style="background: #00c400;" onclick="add_plan()">Adcionar Plano</div>
             </div>
         </div>
-    </div>
-    <div class="section" style="display: none;" id="sec_owner">
-        <div class='banner'>
-            <div class="conteudo">
-                <h2>Minha NFT</h2>
-                <img src alt="Imagem" class="nftimage" id="nftimage2" width="200">
-                <p id="expire"></p>
-                <input type="text" class="TextInput" id="discordId" placeholder="ID Discord">
-                <div class="submitBtn" id="discordIdButton" style="background-color: #03b33d;" onclick="ativar()">Ativar Discord Id</div>
-                <div class="submitBtn" id="Burning" style="background-color: #aa5500;" onclick="burn()">Queimar NFT</div>
-            </div>
+        <img src="cryptospace.jpg" class="figbg">
+        <div class="conteudo">
+            <h2>CryptoVerso</h2>
+            <p><a href="https://discord.gg/eD8VZUnY" style="color:#fff;">Junte-se ao CryptoVerso</a>
+            e tenha acesso a um novo mundo!</p>
+            <div class="botao" id="wallet" style="background: #c46200;" onclick="conectar()">Conectar Metamask</div>
+            <div class="botao" id="discord" style="background: #4b7bff;" onclick="conectar_discord()">Conectar Discord</div>
+            <a href="https://app.zuviapay.com.br/" class="botao" style="background: #000;">Compre suas MATICs via PIX!</a>
         </div>
-    </div>
+    </section>
+    <section class="shop" style="display: none;" id="sec_compra">
+    </section>
+    <section class='mynft' style="display: none;" id="sec_owner">
+        <img src="tothemoon.jpg" class="figbg">
+    </section>
 </body>
 </html>
