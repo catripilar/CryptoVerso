@@ -230,6 +230,7 @@ async function payable(element) {
                 carteira = document.getElementById("Wallet").value;
                 if (carteira != contas[0]){
                     id_discord = 0;
+                    tokenId = 0;
                 }
                 await contract.methods.mint(carteira,criador,tokenId,id_discord,plano).send({from: contas[0]})
                 .then(_ => {ID = id_discord;alert("NFT do criador mintada com sucesso!")})
