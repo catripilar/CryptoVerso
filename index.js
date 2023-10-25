@@ -107,7 +107,7 @@ async function connect_data() {
                     <div class="botao" id="discordIdButton" style="background-color: #4b7bff;" onclick="ativar()">Ativar Discord</div>
                 </div>
                 <div class="imgbx">
-                    <img src=${addhttps(data.image)}>
+                    <img src=${data.image}>
                 </div>`;
                 document.getElementById("sec_owner").appendChild(meunft)
                 if (nftdata.DiscordId != 0){
@@ -141,7 +141,7 @@ async function connect_data() {
                     var novaCarta = document.createElement("div");
                     novaCarta.classList.add('card');
                     novaCarta.innerHTML = 
-                    `<img src=${addhttps(data.image)}>
+                    `<img src=${data.image}>
                     <div class="card-content">
                         <h3>${data.name} Nivel ${level}</h3>
                         <div class="tokenInfo">
@@ -281,12 +281,6 @@ function avoidDots(input) {
     if (value.includes('.')) {
         input.value = value.slice(0, -1);
     }
-}
-function addhttps(url) {
-    if (!url.startsWith("http://") && !url.startsWith("https://")) {
-        url = "https://" + url;
-    }
-    return url;
 }
 function exM() {
     var exm = document.querySelector('.exmenu'); exm.classList.toggle('active');
