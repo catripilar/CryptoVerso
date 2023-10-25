@@ -173,7 +173,7 @@ function conectar_discord() {
     window.location.href = `https://discord.com/oauth2/authorize?client_id=1162941546820292768&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=token&scope=identify`;
 }
 async function ativar() {
-    const id_discord = id_discord = discordIDPermit;
+    const id_discord = discordIDPermit;
     if (conectado == true && tokenId != 0 && ID == 0 && discordIDPermit != 0){
         const contas = await web3.eth.getAccounts();
         await contract.methods.active(tokenId,id_discord).send({from: contas[0]})
