@@ -57,7 +57,7 @@ async function conectar() {
             
             */
             if (redeAtual !== 80001/*137*/) {
-                alert('Por favor, conecte-se à rede Polygon Mumbai para continuar.');
+                alert('Por favor, conecte-se à rede Polygon para continuar.');
                 return;
             }
             conectado = true;
@@ -131,37 +131,39 @@ async function connect_data() {
             const level = planos[i].level;
             const time = planos[i].timestamp/86400;
             const order = i;
-            console.log(level,time,order)
-            fetch(planos[order].uri).then(response => response.json()).then(data => {
-                var remove = "";
-                if(free == true){
-                    remove = `<div class="botao" style="background-color: rgb(160, 0, 0);" onclick="remove_plan(this)" data-info="${order}">Remover</div>`
-                }
-                var novaCarta = document.createElement("div");
-                novaCarta.classList.add('card');
-                novaCarta.innerHTML = 
-                `<img src=${addhttps(data.image)}>
-                <div class="card-content">
-                    <h3>${data.name} Nivel ${level}</h3>
-                    <div class="tokenInfo">
-                        <div class="price">
-                            <ins>$</ins>
-                            <p>${transformarNumero(price,2)} MATIC</p>
+            const acesses = nftdata.acesses;
+            if (tokenLevel >= acesses){
+                fetch(planos[order].uri).then(response => response.json()).then(data => {
+                    var remove = "";
+                    if(free == true){
+                        remove = `<div class="botao" style="background-color: rgb(160, 0, 0);" onclick="remove_plan(this)" data-info="${order}">Remover</div>`
+                    }
+                    var novaCarta = document.createElement("div");
+                    novaCarta.classList.add('card');
+                    novaCarta.innerHTML = 
+                    `<img src=${addhttps(data.image)}>
+                    <div class="card-content">
+                        <h3>${data.name} Nivel ${level}</h3>
+                        <div class="tokenInfo">
+                            <div class="price">
+                                <ins>$</ins>
+                                <p>${transformarNumero(price,2)} MATIC</p>
+                            </div>
+                            <div class="time">
+                                <ins>◷</ins>
+                                <p>${time} DIAS</p>
+                            </div>
                         </div>
-                        <div class="time">
-                            <ins>◷</ins>
-                            <p>${time} DIAS</p>
-                        </div>
-                    </div>
-                    <div class="botao" style="animation: colorChange 4s linear infinite alternate;" onclick="payable(this)"
-                    data-info="${infoParam}/${order}/${price}/${time}">Comprar agora</div>
-                    ${remove}
-                </div>`;
-                document.getElementById("sec_compra").appendChild(novaCarta)
-            })
-            .catch(error => {
-                console.error('Erro ao buscar o JSON:', error);
-            });
+                        <div class="botao" style="animation: colorChange 4s linear infinite alternate;" onclick="payable(this)"
+                        data-info="${infoParam}/${order}/${price}/${time}">Comprar agora</div>
+                        ${remove}
+                    </div>`;
+                    document.getElementById("sec_compra").appendChild(novaCarta)
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar o JSON:', error);
+                });
+            }
         }
     } else {
         console.log("nao encontrado")
@@ -229,7 +231,6 @@ async function payable(element) {
                 carteira = document.getElementById("Wallet").value;
                 if (carteira != contas[0]){
                     id_discord = 0;
-                    tokenId = 0;
                 }
                 await contract.methods.mint(carteira,criador,tokenId,id_discord,plano).send({from: contas[0]})
                 .then(_ => {ID = id_discord;alert("NFT do criador mintada com sucesso!")})
