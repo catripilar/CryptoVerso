@@ -242,6 +242,7 @@ section{
     height: 100%;
     object-fit: cover;
     opacity: 0.8;
+    z-index:-1;
 }
 .mynft .conteiner{
     display: flex;
