@@ -130,8 +130,8 @@ async function connect_data() {
             const price = await contract.methods.Price(infoParam,i).call();
             const level = planos[i].level;
             const time = planos[i].timestamp/86400;
+            const acesses = planos[i].acesses;
             const order = i;
-            const acesses = nftdata.acesses;
             if (tokenLevel >= acesses){
                 fetch(planos[order].uri).then(response => response.json()).then(data => {
                     var remove = "";
