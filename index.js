@@ -154,7 +154,7 @@ async function connect_data() {
                                 <p>${time} DIAS</p>
                             </div>
                         </div>
-                        <div class="botao" style="animation: colorChange 4s linear infinite alternate;" onclick="payable(this)"
+                        <div class="botao" style="color:#008000;" onclick="payable(this)"
                         data-info="${infoParam}/${order}/${price}/${time}">Comprar agora</div>
                         ${remove}
                     </div>`;
