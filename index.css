@@ -76,9 +76,11 @@ section{
     transition: .6s;
 }
 .banner .conteudo p{
-    margin: 20px;color: #fff;
+    margin: 20px;
+    color: #fff;
+    text-transform: uppercase;
     font-size: 1.2em;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     transition: .6s;
 }
 .banner .conteudo h2:hover{transform: translateY(-10px);letter-spacing: 5px;}
