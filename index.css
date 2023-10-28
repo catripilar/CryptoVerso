@@ -331,7 +331,7 @@ section{
     section{padding: 40px;}
     .banner .conteudo h2{font-size: 30px;}
     .mynft{flex-direction: column;}
-    .mynft .conteudo{text-align: center;}
+    .mynft .conteudo{text-align: center;width: 100%;}
     .mynft .conteiner{
         flex-direction: column;
         align-items: center;
