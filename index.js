@@ -271,7 +271,7 @@ function formatUnixTime(unixTime) {
     const day = String(date.getDate()).padStart(2, '0');
     const hours = String(date.getHours()).padStart(2, '0');
 
-    return `${year}/${month}/${day}:${hours}`;
+    return `${year}/${month}/${day} ás ${hours}h`;
 }
 function getCurrentUnixTime() {
     return Math.floor(new Date().getTime() / 1000);
