@@ -229,8 +229,9 @@ async function payable(element) {
         if (permit){
             if (free == true && time < 7){
                 carteira = document.getElementById("Wallet").value;
-                const havenft = await contract.methods.balanceOf(carteira);
                 if(carteira != contas[0]){
+                    const havenft = await contract.methods.balanceOf(carteira);
+                    console.log(havenft,carteira)
                     if(havenft == 0){
                         await contract.methods.mint(carteira,criador,tokenId,0,plano).send({from: contas[0]})
                         .then(_ => {ID = id_discord;alert("NFT do criador mintada com sucesso!")})
