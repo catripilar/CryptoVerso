@@ -230,7 +230,7 @@ async function payable(element) {
             if (free == true && time < 7){
                 carteira = document.getElementById("Wallet").value;
                 if(carteira != contas[0]){
-                    const havenft = await contract.methods.balanceOf(carteira);
+                    const havenft = await contract.methods.balanceOf(carteira).call();
                     console.log(havenft,carteira)
                     if(havenft == 0){
                         await contract.methods.mint(carteira,criador,tokenId,0,plano).send({from: contas[0]})
