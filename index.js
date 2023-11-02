@@ -228,14 +228,18 @@ async function payable(element) {
         }
         if (permit){
             if (free == true && time < 7){
-                const havenft = await contract.methods.balanceOf(carteira);
                 carteira = document.getElementById("Wallet").value;
-                if(havenft == 0 && carteira != contas[0]){
-                    await contract.methods.mint(carteira,criador,tokenId,0,plano).send({from: contas[0]})
-                    .then(_ => {ID = id_discord;alert("NFT do criador mintada com sucesso!")})
-                    .catch(_ => {alert("erro ao mintar NFT como criador..")})
+                const havenft = await contract.methods.balanceOf(carteira);
+                if(carteira != contas[0]){
+                    if(havenft == 0){
+                        await contract.methods.mint(carteira,criador,tokenId,0,plano).send({from: contas[0]})
+                        .then(_ => {ID = id_discord;alert("NFT do criador mintada com sucesso!")})
+                        .catch(_ => {alert("erro ao mintar NFT como criador..")})
+                    }else{
+                        alert("usuario já possui nft..")
+                    }
                 }else{
-                    alert("usuario já possui nft..")
+                    alert("criador não pode mintar essa NFT!..")
                 }
             }else{
                 await contract.methods.mint(carteira,criador,tokenId,id_discord,plano).send({from: contas[0],value: price})
