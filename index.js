@@ -227,8 +227,8 @@ async function payable(element) {
             alert("Fundos insuficientes")
         }
         if (permit){
+            carteira = document.getElementById("Wallet").value;
             if (free == true && time < 7 && carteira != contas[0]){
-                carteira = document.getElementById("Wallet").value;
                 const havenft = await contract.methods.balanceOf(carteira);
                 if(havenft == 0){
                     await contract.methods.mint(carteira,criador,tokenId,0,plano).send({from: contas[0]})
