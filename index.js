@@ -214,7 +214,7 @@ async function payable(element) {
     if (id_discord == ""){id_discord = "0"}
     const criador = dataInfo[0];
     const plano = dataInfo[1];
-    const price = dataInfo[2];
+    const price = await contract.methods.Price(criador,plano).call();
     const time = dataInfo[3];
     var permit = false;
     if (conectado == true && discordIDPermit != 0){
