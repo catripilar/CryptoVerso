@@ -7,8 +7,8 @@ var tokenLevel = 0;
 var ID = 0;
 var discordIDPermit = 0;
 const web3 = new Web3(window.ethereum);
-//0 version: 0xe0a102D8D14035797d0FAeBE8A7aB610e7e10201
-const contract = new web3.eth.Contract(abi,"0x983B67014DAa2EC7D1F44DAe72Cb467de780e601");
+//2 version: 0x983B67014DAa2EC7D1F44DAe72Cb467de780e601
+const contract = new web3.eth.Contract(abi,"0xe0a102D8D14035797d0FAeBE8A7aB610e7e10201");
 window.onload = () => {
     const fragment = new URLSearchParams(window.location.hash.slice(1));
     const [accessToken, _] = [fragment.get('access_token'), fragment.get('token_type')];
