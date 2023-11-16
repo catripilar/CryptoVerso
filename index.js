@@ -124,7 +124,7 @@ async function connect_data() {
         }
     }
     if (infoParam) {
-        const (planos,quantity) = await contract.methods.Plans(infoParam).call();
+        const planos,quantity = await contract.methods.Plans(infoParam).call();
         document.getElementById("sec_compra").style.display = "flex";
         for (var i = 0; i < planos.length; i++) {
             const price = planos[i].amount;
