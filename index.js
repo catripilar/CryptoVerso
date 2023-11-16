@@ -132,7 +132,7 @@ async function connect_data() {
             const level = planos[0][i].level;
             const time = planos[0][i].timestamp/86400;
             const acesses = planos[0][i].acesses;
-            const disponiveis = quantity[1][i];
+            const disponiveis = planos[1][i];
             const order = i;
             const uri = await contract.methods.metadataOfLevel(level).call();
             if (tokenLevel >= acesses){
