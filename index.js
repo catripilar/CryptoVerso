@@ -77,9 +77,9 @@ async function connect_data() {
     const infoParam = getURLParameter("info");
     const carteira_string = encurtarString(contas[0],10);
     document.getElementById('wallet').innerHTML = "Conectado: "+carteira_string;
-    console.log(contract)
+    console.log(contract.methods.the_owner)
     const creator = await contract.methods.Creator(infoParam).call();
-    const the_owner = await contract.methods.the_owner.call();
+    const the_owner = await contract.methods.the_owner;
     if (creator == contas[0] || theowner == contas[0]){
         tokenLevel = 100;
         document.getElementById("menu").style.display = "block";
