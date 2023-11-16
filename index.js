@@ -130,7 +130,7 @@ async function connect_data() {
         for (var i = 0; i < planos[0].length; i++) {
             const price = planos[0][i].amount;
             const level = planos[0][i].level;
-            const time = planos[0][i].timestamp/86400;
+            const time = planos[0][i].daysTime/86400;
             const acesses = planos[0][i].acesses;
             const disponiveis = planos[1][i];
             const order = i;
@@ -198,7 +198,7 @@ async function add_plan() {
     const Quantidade = document.getElementById("Quantidade").value;
     if (conectado == true && free == true && infoParam && Dias > 0){
         const contas = await web3.eth.getAccounts();
-        await contract.methods.ads(infoParam,[Cargo,Dias*86400,Valor**Decimal,Nivel,Acesso],Quantidade).send({from: contas[0]})
+        await contract.methods.ads(infoParam,[Cargo,Dias*86400,adicionarZeros(Valor,Decimal),Nivel,Acesso],Quantidade).send({from: contas[0]})
         .then(_ => {alert("Plano adcionado com sucesso!");location.reload();})
         .catch(_ => {alert("erro ao adcionar seu plano..")})
     }
@@ -270,4 +270,14 @@ function avoidDots(input) {
 function exM() {
     var exm = document.querySelector('.exmenu'); exm.classList.toggle('active');
     var nav = document.querySelector('.exnav'); nav.classList.toggle('active');
+}
+function adicionarZeros(amont, decimal) {
+  if (typeof amont !== 'number' || typeof decimal !== 'number') {
+    throw new Error('Os argumentos devem ser números');
+  }
+
+  const parteDecimalString = '.' + '0'.repeat(decimal);
+  const resultado = parseFloat(amont + parteDecimalString);
+
+  return resultado;
 }
