@@ -216,7 +216,8 @@ async function payable(element) {
         const contas = await web3.eth.getAccounts();
         var carteira = contas[0];
         balances = await web3.eth.getBalance(contas[0]);
-        if(balances > Number(price)){
+        console.log(balances,price)
+        if(balances > price){
             permit = true
         }else{
             alert("Fundos insuficientes")
