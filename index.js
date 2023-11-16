@@ -190,13 +190,13 @@ async function remove_plan(element) {
 async function add_plan() {
     const infoParam = getURLParameter("info");
     const Cargo = document.getElementById("Cargo").value;
-    const Valor = document.getElementById("Valor").value;
-    const Decimal = document.getElementById("Decimal").value;
+    const Valor = parseFloat(document.getElementById("Valor").value);
+    const Decimal = parseFloat(document.getElementById("Decimal").value);
     const Dias = document.getElementById("Dias").value;
     const Nivel = document.getElementById("Nivel").value;
     const Acesso = document.getElementById("Acesso").value;
     const Quantidade = document.getElementById("Quantidade").value;
-    if (conectado == true && free == true && infoParam && Dias > 0){
+    if (conectado == true && free == true && infoParam && Dias > 0 && Quantidade > 0 && Nivel > 0){
         const contas = await web3.eth.getAccounts();
         await contract.methods.ads(infoParam,[Cargo,Dias*86400,adicionarZeros(Valor,Decimal),Nivel,Acesso],Quantidade).send({from: contas[0]})
         .then(_ => {alert("Plano adcionado com sucesso!");location.reload();})
