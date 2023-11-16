@@ -15,12 +15,9 @@
         <div class="exmenu" onclick="exM()" id="menu" style="display: none;"></div>
         <div class="exnav">
             <div class="content">
-                <label for="Wallet">Carteira De Destino:</label>
-                <textarea class="TextInput" id="Wallet" name="Wallet" placeholder="Carteira De Destino" required="Carteira"></textarea>
                 <h2>Criar novo Plano</h2>
-                <textarea class="TextInput" id="URI" placeholder="URI da NFT" required="URI"></textarea>
                 <input type="text" oninput="avoidDots(this)" class="TextInput" id="Cargo" placeholder="ID do Cargo" required="Cargo">
-                <input type="text" oninput="avoidDots(this)" class="TextInput" id="Valor" placeholder="Valor em $USD" required="Valor">
+                <input type="text" oninput="avoidDots(this)" class="TextInput" id="Valor" placeholder="Valor em MATIC" required="Valor">
                 
                 <div style="border-top: 1px solid #fff;">
                     <div class="format">
@@ -33,11 +30,15 @@
                     </div>
                     <div class="format">
                         <label for="Nivel">Nivel do NFT:</label>
-                        <input type="number" class="TextInput" id="Nivel" name="Nivel" min="1" max="100" value="1">
+                        <input type="number" class="TextInput" id="Nivel" name="Nivel" min="1" max="1" value="1">
                     </div>
                     <div class="format">
                         <label for="Acesso">Nivel de acesso:</label>
                         <input type="number" class="TextInput" id="Acesso" name="Acesso" min="0" max="100" value="0">
+                    </div>
+                    <div class="format">
+                        <label for="Quantidade">Quantidade:</label>
+                        <input type="number" class="TextInput" id="Quantidade" name="Quantidade" min="1" max="1000" value="1">
                     </div>
                 </div>
                 <div class="botao" style="background: #00c400;" onclick="add_plan()">Adcionar Plano</div>
