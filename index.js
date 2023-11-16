@@ -196,9 +196,9 @@ async function add_plan() {
     const Nivel = document.getElementById("Nivel").value;
     const Acesso = document.getElementById("Acesso").value;
     const Quantidade = document.getElementById("Quantidade").value;
-    if (conectado == true && free == true && infoParam && URI && Valor > 0){
+    if (conectado == true && free == true && infoParam && Dias > 0){
         const contas = await web3.eth.getAccounts();
-        await contract.methods.ads([infoParam,URI,Cargo,Valor**Decimal,Nivel,Acesso,Dias],Quantidade).send({from: contas[0]})
+        await contract.methods.ads(infoParam,[Cargo,Dias*86400,Valor**Decimal,Nivel,Acesso],Quantidade).send({from: contas[0]})
         .then(_ => {alert("Plano adcionado com sucesso!");location.reload();})
         .catch(_ => {alert("erro ao adcionar seu plano..")})
     }
