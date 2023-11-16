@@ -79,7 +79,6 @@ async function connect_data() {
     document.getElementById('wallet').innerHTML = "Conectado: "+carteira_string;
     const creator = await contract.methods.Creator(infoParam).call();
     const the_owner = await contract.methods.Creator("").call();
-    console.log(the_owner)
     if (creator == contas[0] || the_owner == contas[0]){
         tokenLevel = 100;
         document.getElementById("menu").style.display = "block";
@@ -216,7 +215,6 @@ async function payable(element) {
         const contas = await web3.eth.getAccounts();
         var carteira = contas[0];
         balances = await web3.eth.getBalance(contas[0]);
-        console.log(balances,price)
         if(balances > price){
             permit = true
         }else{
