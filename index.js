@@ -125,14 +125,14 @@ async function connect_data() {
         }
     }
     if (infoParam) {
-        const [planos,quantity] = await contract.methods.Plans(infoParam).call();
+        const planos = await contract.methods.Plans(infoParam).call();
         document.getElementById("sec_compra").style.display = "flex";
-        for (var i = 0; i < planos.length; i++) {
-            const price = planos[i].amount;
-            const level = planos[i].level;
-            const time = planos[i].timestamp/86400;
-            const acesses = planos[i].acesses;
-            const disponiveis = quantity[i];
+        for (var i = 0; i < planos[0].length; i++) {
+            const price = planos[0][i].amount;
+            const level = planos[0][i].level;
+            const time = planos[0][i].timestamp/86400;
+            const acesses = planos[0][i].acesses;
+            const disponiveis = quantity[1][i];
             const order = i;
             const uri = await contract.methods.metadataOfLevel(level).call();
             if (tokenLevel >= acesses){
