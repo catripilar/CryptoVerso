@@ -135,6 +135,13 @@ async function connect_data() {
             if (tokenLevel >= acesses && disponiveis > 0){
                 fetch(uri).then(response => response.json()).then(data => {
                     var remove = "";
+                    var buy = "";
+                    if(disponiveis > 0){
+                        buy = `<div class="botao" style="background-color:#008000;" onclick="payable(this)"
+                        data-info="${infoParam}/${order}/${price}/${time}">Comprar agora</div>`
+                    }else{
+                        buy = `<div class="botao" style="background-color:#808080;">Esgotado</div>`
+                    }
                     if(free == true){
                         remove = `<div class="botao" style="background-color: rgb(160, 0, 0);" onclick="remove_plan(this)" data-info="${order}">Remover</div>`
                     }
@@ -143,7 +150,7 @@ async function connect_data() {
                     novaCarta.innerHTML = 
                     `<img src=${data.image}>
                     <div class="card-content">
-                        <h3>${data.name} Nivel ${level}</h3>
+                        <h3>${data.name} Nível ${level}</h3>
                         <div class="tokenInfo">
                             <div class="price">
                                 <ins>$</ins>
