@@ -189,7 +189,6 @@ async function remove_plan(element) {
 }
 async function add_plan() {
     const infoParam = getURLParameter("info");
-    const URI = document.getElementById("URI").value;
     const Cargo = document.getElementById("Cargo").value;
     const Valor = document.getElementById("Valor").value;
     const Decimal = document.getElementById("Decimal").value;
