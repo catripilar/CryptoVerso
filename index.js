@@ -101,10 +101,9 @@ async function connect_data() {
                 meunft.innerHTML = 
                 `<div class="conteudo">
                     <h2>Sua NFT:</h2>
-                    <h2>${data.name} Nivel ${level}</h2>
+                    <h2>${data.name} Nível ${level}</h2>
                     <h2>Data de Vencimento: ${time}</h2>
                     <p>${data.description}</p>
-                    <div class="botao" id="discordIdButton" style="background-color: #4b7bff;" onclick="ativar()">Ativar Discord</div>
                 </div>
                 <div class="imgbx">
                     <img src=${data.image}>
@@ -112,7 +111,6 @@ async function connect_data() {
                 document.getElementById("sec_owner").appendChild(meunft)
                 if (nftdata.DiscordId != 0){
                     ID = nftdata.DiscordId;
-                    document.getElementById("discordIdButton").style.display = "none";
                 }
                 if (tokenId != 0){
                     document.getElementById("sec_owner").style.display = "flex";
@@ -159,7 +157,7 @@ async function connect_data() {
                         <div class="botao" style="background-color:#008000;" onclick="payable(this)"
                         data-info="${infoParam}/${order}/${price}/${time}">Comprar agora</div>
                         ${remove}
-                        <p>Disponiveis:${disponiveis}</p>
+                        <p>Disponíveis:${disponiveis}</p>
                     </div>`;
                     document.getElementById("sec_compra").appendChild(novaCarta)
                 })
