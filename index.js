@@ -132,7 +132,7 @@ async function connect_data() {
             const disponiveis = planos[1][i];
             const order = i;
             const uri = await contract.methods.metadataOfLevel(level).call();
-            if (tokenLevel >= acesses && disponiveis > 0){
+            if (tokenLevel >= acesses){
                 fetch(uri).then(response => response.json()).then(data => {
                     var remove = "";
                     var buy = "";
