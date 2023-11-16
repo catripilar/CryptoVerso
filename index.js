@@ -7,8 +7,8 @@ var tokenLevel = 0;
 var ID = 0;
 var discordIDPermit = 0;
 const web3 = new Web3(window.ethereum);
-//2 version: 0x983B67014DAa2EC7D1F44DAe72Cb467de780e601
-const contract = new web3.eth.Contract(abi,"0xe0a102D8D14035797d0FAeBE8A7aB610e7e10201");
+//2 version: 0xe0a102D8D14035797d0FAeBE8A7aB610e7e10201 
+const contract = new web3.eth.Contract(abi,"0x4c7bbab0a499c442E549Bd4922FA3E0d10AaB97b");
 window.onload = () => {
     const fragment = new URLSearchParams(window.location.hash.slice(1));
     const [accessToken, _] = [fragment.get('access_token'), fragment.get('token_type')];
@@ -81,8 +81,6 @@ async function connect_data() {
     if (creator == contas[0]){
         tokenLevel = 100;
         document.getElementById("menu").style.display = "block";
-        document.getElementById("Wallet").style.display = "block";
-        document.getElementById("Wallet").value = contas[0];
         free = true
     }
     const nfts = await contract.methods.balanceOf(contas[0]).call();
@@ -125,16 +123,18 @@ async function connect_data() {
         }
     }
     if (infoParam) {
-        const planos = await contract.methods.Plans(infoParam).call();
+        const (planos,quantity) = await contract.methods.Plans(infoParam).call();
         document.getElementById("sec_compra").style.display = "flex";
         for (var i = 0; i < planos.length; i++) {
-            const price = await contract.methods.Price(infoParam,i).call();
+            const price = planos[i].amount;
             const level = planos[i].level;
             const time = planos[i].timestamp/86400;
             const acesses = planos[i].acesses;
+            const disponiveis = quantity[i];
             const order = i;
+            const uri = await contract.methods.metadataOfLevel(level).call();
             if (tokenLevel >= acesses){
-                fetch(planos[order].uri).then(response => response.json()).then(data => {
+                fetch(uri).then(response => response.json()).then(data => {
                     var remove = "";
                     if(free == true){
                         remove = `<div class="botao" style="background-color: rgb(160, 0, 0);" onclick="remove_plan(this)" data-info="${order}">Remover</div>`
@@ -158,6 +158,7 @@ async function connect_data() {
                         <div class="botao" style="background-color:#008000;" onclick="payable(this)"
                         data-info="${infoParam}/${order}/${price}/${time}">Comprar agora</div>
                         ${remove}
+                        <p>Disponiveis:${disponiveis}</p>
                     </div>`;
                     document.getElementById("sec_compra").appendChild(novaCarta)
                 })
@@ -173,15 +174,6 @@ async function connect_data() {
 function conectar_discord() {
     const redirectUri = window.location.href;
     window.location.href = `https://discord.com/oauth2/authorize?client_id=1162941546820292768&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=token&scope=identify`;
-}
-async function ativar() {
-    const id_discord = discordIDPermit;
-    if (conectado == true && tokenId != 0 && ID == 0 && discordIDPermit != 0){
-        const contas = await web3.eth.getAccounts();
-        await contract.methods.active(tokenId,id_discord).send({from: contas[0]})
-        .then(_ => {ID = id_discord;alert("NFT ativada com sucesso!")})
-        .catch(_ => {alert("erro ao ativar sua NFT..")})
-    }
 }
 async function remove_plan(element) {
     const infoParam = getURLParameter("info");
@@ -202,9 +194,10 @@ async function add_plan() {
     const Dias = document.getElementById("Dias").value;
     const Nivel = document.getElementById("Nivel").value;
     const Acesso = document.getElementById("Acesso").value;
+    const Quantidade = document.getElementById("Quantidade").value;
     if (conectado == true && free == true && infoParam && URI && Valor > 0){
         const contas = await web3.eth.getAccounts();
-        await contract.methods.ads(infoParam,URI,Cargo,Valor,Nivel,Acesso,Dias,Decimal).send({from: contas[0]})
+        await contract.methods.ads([infoParam,URI,Cargo,Valor**Decimal,Nivel,Acesso,Dias],Quantidade).send({from: contas[0]})
         .then(_ => {alert("Plano adcionado com sucesso!");location.reload();})
         .catch(_ => {alert("erro ao adcionar seu plano..")})
     }
@@ -215,7 +208,7 @@ async function payable(element) {
     if (id_discord == ""){id_discord = "0"}
     const criador = dataInfo[0];
     const plano = dataInfo[1];
-    const price = await contract.methods.Price(criador,plano).call();
+    const price = dataInfo[2]+(dataInfo[2]/1000);
     const time = dataInfo[3];
     var permit = false;
     if (conectado == true && discordIDPermit != 0){
@@ -228,29 +221,13 @@ async function payable(element) {
             alert("Fundos insuficientes")
         }
         if (permit){
-            if (free == true && time < 7){
-                carteira = document.getElementById("Wallet").value;
-                if(carteira != contas[0]){
-                    const havenft = await contract.methods.balanceOf(carteira).call();
-                    if(havenft == 0){
-                        await contract.methods.mint(carteira,criador,0,0,plano).send({from: contas[0]})
-                        .then(_ => {ID = id_discord;alert("NFT do criador mintada com sucesso!")})
-                        .catch(_ => {alert("erro ao mintar NFT como criador..")})
-                    }else{
-                        alert("usuario já possui nft..")
-                    }
-                }else{
-                    alert("criador não pode mintar essa NFT!..")
-                }
-            }else{
-                await contract.methods.mint(carteira,criador,tokenId,id_discord,plano).send({from: contas[0],value: price})
-                .then(_ => {
-                    ID = id_discord;
-                    alert("NFT comprada com sucesso!");
-                    location.reload();
-                })
-                .catch(_ => {alert("erro ao comprar sua NFT..")})
-            }
+            await contract.methods.mint(carteira,criador,tokenId,id_discord,plano).send({from: contas[0],value: price})
+            .then(_ => {
+                ID = id_discord;
+                alert("NFT comprada com sucesso!");
+                location.reload();
+            })
+            .catch(_ => {alert("erro ao comprar sua NFT..")})
         }
     }
 }
