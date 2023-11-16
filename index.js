@@ -276,8 +276,8 @@ function adicionarZeros(amont, decimal) {
     throw new Error('Os argumentos devem ser números');
   }
 
-  const parteDecimalString = '.' + '0'.repeat(decimal);
-  const resultado = parseFloat(amont + parteDecimalString);
+  const parteDecimalString = '0'.repeat(decimal);
+  const resultado = amont + parteDecimalString;
 
   return resultado;
 }
