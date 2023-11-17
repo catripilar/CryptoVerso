@@ -313,7 +313,7 @@ function adicionarZeros(amont, decimal) {
 }
 async function estimarTaxaDeGas() {
     try {
-        const taxaDeGas = await window.web3.eth.getGasPrice();
+        const taxaDeGas = await web3.eth.getGasPrice();
         console.log('Taxa de Gás Atual:', taxaDeGas);
         return taxaDeGas;
     } catch (error) {
