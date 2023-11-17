@@ -76,17 +76,19 @@ async function connect_data() {
     }
     const infoParam = getURLParameter("info");
     const carteira_string = encurtarString(contas[0],10);
-    const creator_exist = true;
+    var creator_exist = true;
     document.getElementById('wallet').innerHTML = "Conectado: "+carteira_string;
     const the_owner = await contract.methods.Creator("").call();
     await contract.methods.Creator(infoParam).call().then((creator) => {
         console.log(creator,contas[0])
-        if (creator === contas[0] || the_owner === contas[0]){
+        if (creator == 0x0000000000000000000000000000000000000000){
+            creator_exist = false;
+        }
+        if (creator == contas[0] && creator_exist == true 
+            || the_owner == contas[0] && creator_exist == true){
             tokenLevel = 100;
             document.getElementById("menu").style.display = "block";
             free = true
-        }else{
-            creator_exist = false;
         }
       }).catch((error) => {
         creator_exist = false;
