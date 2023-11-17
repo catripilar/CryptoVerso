@@ -212,7 +212,10 @@ async function payable(element) {
     if (id_discord == ""){id_discord = "0"}
     const criador = dataInfo[0];
     const plano = dataInfo[1];
-    const price = Number(dataInfo[2])+(Number(dataInfo[2])/1000);
+    const price = 0;
+    if(dataInfo[2]) > 0{
+        price = Number(dataInfo[2])+(Number(dataInfo[2])/1000);
+    }
     const time = dataInfo[3];
     var permit = false;
     if (conectado == true && discordIDPermit != 0){
