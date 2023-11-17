@@ -209,8 +209,13 @@ async function add_plan() {
     const Acesso = document.getElementById("Acesso").value;
     const Quantidade = document.getElementById("Quantidade").value;
     const uri = await contract.methods.metadataOfLevel(Nivel).call();
-    if (conectado == true && free == true && infoParam && Dias > 0 && Quantidade > 0 && Nivel > 0 && uri != "" && Valor >= 0 && Decimal >= 0){
-        const contas = await web3.eth.getAccounts();
+    const contas = await web3.eth.getAccounts();
+    
+    if (conectado == true && free == true && 
+        infoParam && Dias > 0 && Quantidade > 0 &&
+        Nivel > 0 && uri != "" && Valor >= 0 &&
+        Decimal >= 0 && Nivel > Acesso){
+        
         await contract.methods.ads(infoParam,[Cargo,Dias*86400,adicionarZeros(Valor,Decimal),Nivel,Acesso],Quantidade).send({from: contas[0]})
         .then(_ => {alert("Plano adcionado com sucesso!");location.reload();})
         .catch(_ => {alert("erro ao adcionar seu plano..")})
@@ -224,15 +229,13 @@ async function payable(element) {
     if (id_discord == ""){id_discord = "0"}
     const criador = dataInfo[0];
     const plano = dataInfo[1];
-    const price = 0;
+    var price = 0;
     if(dataInfo[2] > 0){
         price = Number(dataInfo[2])+(Number(dataInfo[2])/1000);
     }
     const time = dataInfo[3];
     var permit = false;
     if (conectado == true && discordIDPermit != 0){
-        const contas = await web3.eth.getAccounts();
-        var carteira = contas[0];
         balances = await web3.eth.getBalance(contas[0]);
         if(balances > price){
             permit = true
@@ -240,7 +243,7 @@ async function payable(element) {
             alert("Fundos insuficientes")
         }
         if (permit){
-            await contract.methods.mint(carteira,criador,tokenId,id_discord,plano).send({from: contas[0],value: price})
+            await contract.methods.mint(contas[0],criador,tokenId,id_discord,plano).send({from: contas[0],value: price})
             .then(_ => {
                 ID = id_discord;
                 alert("NFT comprada com sucesso!");
