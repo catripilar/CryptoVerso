@@ -85,7 +85,10 @@ async function connect_data() {
             tokenLevel = 100;
             document.getElementById("menu").style.display = "block";
             free = true
-        }else{creator_exist = false;}
+        }else{
+            console.log("ok")
+            creator_exist = false;
+        }
       }).catch((error) => {
         creator_exist = false;
         console.error('Erro ao obter planos:', error);
