@@ -196,7 +196,7 @@ async function remove_plan(element) {
         const contas = await web3.eth.getAccounts();
         const contractMethod = contract.methods.rmv(infoParam,i);
         const taxaDeGasAtual = await estimarTaxaDeGas();
-        const gasAtual = await contractMethod.estimateGas();
+        const gasAtual = await contractMethod.estimateGas({from: contas[0]});
         await contractMethod.send({from: contas[0],gas: gasAtual,gasPrice: taxaDeGasAtual})
         .then(_ => {alert("Plano removido com sucesso!");location.reload();})
         .catch(_ => {alert("erro ao remover seu plano..")})
@@ -220,7 +220,7 @@ async function add_plan() {
         const contas = await web3.eth.getAccounts();
         const contractMethod = contract.methods.ads(infoParam,[Cargo,Dias*86400,adicionarZeros(Valor,Decimal),Nivel,Acesso],Quantidade);
         const taxaDeGasAtual = await estimarTaxaDeGas();
-        const gasAtual = await contractMethod.estimateGas();
+        const gasAtual = await contractMethod.estimateGas({from: contas[0]});
         await contractMethod.send({from: contas[0],gas: gasAtual,gasPrice: taxaDeGasAtual})
         .then(_ => {alert("Plano adcionado com sucesso!");location.reload();})
         .catch(_ => {alert("erro ao adcionar seu plano..")})
@@ -251,7 +251,7 @@ async function payable(element) {
         if (permit){
             const contractMethod = contract.methods.mint(contas[0],criador,tokenId,id_discord,plano);
             const taxaDeGasAtual = await estimarTaxaDeGas();
-            const gasAtual = await contractMethod.estimateGas();
+            const gasAtual = await contractMethod.estimateGas({from: contas[0]});
             await contractMethod.send({from: contas[0],value: price,gas: gasAtual,gasPrice: taxaDeGasAtual})
             .then(_ => {
                 ID = id_discord;
