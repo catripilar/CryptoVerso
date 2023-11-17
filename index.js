@@ -7,8 +7,8 @@ var tokenLevel = 0;
 var ID = 0;
 var discordIDPermit = 0;
 const web3 = new Web3(window.ethereum);
-//2 version: 0xe0a102D8D14035797d0FAeBE8A7aB610e7e10201 
-const contract = new web3.eth.Contract(abi,"0xc9123Ab13fd0A41658fD25b5199faA674F6a6314");
+//mumbai: 0xc9123Ab13fd0A41658fD25b5199faA674F6a6314 
+const contract = new web3.eth.Contract(abi,"0x52fa5654E778C89a3917358794361207f415a018");
 window.onload = () => {
     const fragment = new URLSearchParams(window.location.hash.slice(1));
     const [accessToken, _] = [fragment.get('access_token'), fragment.get('token_type')];
@@ -57,7 +57,7 @@ async function conectar() {
             
             
             */
-            if (redeAtual !== 80001/*137*/) {
+            if (redeAtual !== /*80001*/137) {
                 alert('Por favor, conecte-se à rede Polygon para continuar.');
                 return;
             }
