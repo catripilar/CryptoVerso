@@ -199,11 +199,14 @@ async function add_plan() {
     const Nivel = document.getElementById("Nivel").value;
     const Acesso = document.getElementById("Acesso").value;
     const Quantidade = document.getElementById("Quantidade").value;
-    if (conectado == true && free == true && infoParam && Dias > 0 && Quantidade > 0 && Nivel > 0){
+    const uri = await contract.methods.metadataOfLevel(Nivel).call();
+    if (conectado == true && free == true && infoParam && Dias > 0 && Quantidade > 0 && Nivel > 0 && uri != "" && Valor >= 0 && Decimal >= 0){
         const contas = await web3.eth.getAccounts();
         await contract.methods.ads(infoParam,[Cargo,Dias*86400,adicionarZeros(Valor,Decimal),Nivel,Acesso],Quantidade).send({from: contas[0]})
         .then(_ => {alert("Plano adcionado com sucesso!");location.reload();})
         .catch(_ => {alert("erro ao adcionar seu plano..")})
+    }else{
+        alert("erro ao ler parâmetros para o novo plano..")
     }
 }
 async function payable(element) {
