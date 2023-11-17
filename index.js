@@ -194,7 +194,8 @@ async function remove_plan(element) {
     const i = element.getAttribute("data-info");
     if (conectado == true && free == true && infoParam){
         const contas = await web3.eth.getAccounts();
-        await contract.methods.rmv(infoParam,i).send({from: contas[0]})
+        const taxaDeGasAtual = await estimarTaxaDeGas();
+        await contract.methods.rmv(infoParam,i).send({from: contas[0],gasPrice: taxaDeGasAtual})
         .then(_ => {alert("Plano removido com sucesso!");location.reload();})
         .catch(_ => {alert("erro ao remover seu plano..")})
     }
@@ -215,7 +216,8 @@ async function add_plan() {
         Nivel > 0 && uri != "" && Valor >= 0 &&
         Decimal >= 0 && Nivel > Acesso){
         const contas = await web3.eth.getAccounts();
-        await contract.methods.ads(infoParam,[Cargo,Dias*86400,adicionarZeros(Valor,Decimal),Nivel,Acesso],Quantidade).send({from: contas[0]})
+        const taxaDeGasAtual = await estimarTaxaDeGas();
+        await contract.methods.ads(infoParam,[Cargo,Dias*86400,adicionarZeros(Valor,Decimal),Nivel,Acesso],Quantidade).send({from: contas[0],gasPrice: taxaDeGasAtual})
         .then(_ => {alert("Plano adcionado com sucesso!");location.reload();})
         .catch(_ => {alert("erro ao adcionar seu plano..")})
     }else{
@@ -243,7 +245,8 @@ async function payable(element) {
             alert("Fundos insuficientes")
         }
         if (permit){
-            await contract.methods.mint(contas[0],criador,tokenId,id_discord,plano).send({from: contas[0],value: price})
+            const taxaDeGasAtual = await estimarTaxaDeGas();
+            await contract.methods.mint(contas[0],criador,tokenId,id_discord,plano).send({from: contas[0],value: price,gasPrice: taxaDeGasAtual})
             .then(_ => {
                 ID = id_discord;
                 alert("NFT comprada com sucesso!");
@@ -301,4 +304,13 @@ function adicionarZeros(amont, decimal) {
   const resultado = amont + parteDecimalString;
 
   return resultado;
+}
+async function estimarTaxaDeGas() {
+    try {
+        const taxaDeGas = await window.web3.eth.getGasPrice();
+        console.log('Taxa de Gás Atual:', taxaDeGas);
+        return taxaDeGas;
+    } catch (error) {
+        console.error('Erro ao estimar a taxa de gás:', error);
+    }
 }
