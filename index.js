@@ -209,13 +209,12 @@ async function add_plan() {
     const Acesso = document.getElementById("Acesso").value;
     const Quantidade = document.getElementById("Quantidade").value;
     const uri = await contract.methods.metadataOfLevel(Nivel).call();
-    const contas = await web3.eth.getAccounts();
     
     if (conectado == true && free == true && 
         infoParam && Dias > 0 && Quantidade > 0 &&
         Nivel > 0 && uri != "" && Valor >= 0 &&
         Decimal >= 0 && Nivel > Acesso){
-        
+        const contas = await web3.eth.getAccounts();
         await contract.methods.ads(infoParam,[Cargo,Dias*86400,adicionarZeros(Valor,Decimal),Nivel,Acesso],Quantidade).send({from: contas[0]})
         .then(_ => {alert("Plano adcionado com sucesso!");location.reload();})
         .catch(_ => {alert("erro ao adcionar seu plano..")})
@@ -236,6 +235,7 @@ async function payable(element) {
     const time = dataInfo[3];
     var permit = false;
     if (conectado == true && discordIDPermit != 0){
+        const contas = await web3.eth.getAccounts();
         balances = await web3.eth.getBalance(contas[0]);
         if(balances > price){
             permit = true
