@@ -76,14 +76,19 @@ async function connect_data() {
     }
     const infoParam = getURLParameter("info");
     const carteira_string = encurtarString(contas[0],10);
+    const creator_exist = true;
     document.getElementById('wallet').innerHTML = "Conectado: "+carteira_string;
-    const creator = await contract.methods.Creator(infoParam).call();
     const the_owner = await contract.methods.Creator("").call();
-    if (creator == contas[0] || the_owner == contas[0]){
-        tokenLevel = 100;
-        document.getElementById("menu").style.display = "block";
-        free = true
-    }
+    await contract.methods.Creator(infoParam).call().then((creator) => {
+        if (creator == contas[0] || the_owner == contas[0]){
+            tokenLevel = 100;
+            document.getElementById("menu").style.display = "block";
+            free = true
+        }
+      }).catch((error) => {
+        creator_exist = false;
+        console.error('Erro ao obter planos:', error);
+    });
     const nfts = await contract.methods.balanceOf(contas[0]).call();
     if(nfts > 0){
         tokenId = await contract.methods.tokenOfOwnerByIndex(contas[0],0).call();
@@ -121,7 +126,7 @@ async function connect_data() {
             });
         }
     }
-    if (infoParam) {
+    if (infoParam && creator_exist == true) {
         const planos = await contract.methods.Plans(infoParam).call();
         document.getElementById("sec_compra").style.display = "flex";
         for (var i = 0; i < planos[0].length; i++) {
