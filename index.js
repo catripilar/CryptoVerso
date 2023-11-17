@@ -195,8 +195,8 @@ async function remove_plan(element) {
     if (conectado == true && free == true && infoParam){
         const contas = await web3.eth.getAccounts();
         const contractMethod = contract.methods.rmv(infoParam,i);
-        const taxaDeGasAtual = await estimarTaxaDeGas()*1.05;
-        const gasAtual = await contractMethod.estimateGas()*1.05;
+        const taxaDeGasAtual = await estimarTaxaDeGas();
+        const gasAtual = await contractMethod.estimateGas();
         await contractMethod.send({from: contas[0],gas: gasAtual,gasPrice: taxaDeGasAtual})
         .then(_ => {alert("Plano removido com sucesso!");location.reload();})
         .catch(_ => {alert("erro ao remover seu plano..")})
@@ -219,8 +219,8 @@ async function add_plan() {
         Decimal >= 0 && Nivel > Acesso){
         const contas = await web3.eth.getAccounts();
         const contractMethod = contract.methods.ads(infoParam,[Cargo,Dias*86400,adicionarZeros(Valor,Decimal),Nivel,Acesso],Quantidade);
-        const taxaDeGasAtual = await estimarTaxaDeGas()*1.05;
-        const gasAtual = await contractMethod.estimateGas()*1.05;
+        const taxaDeGasAtual = await estimarTaxaDeGas();
+        const gasAtual = await contractMethod.estimateGas();
         await contractMethod.send({from: contas[0],gas: gasAtual,gasPrice: taxaDeGasAtual})
         .then(_ => {alert("Plano adcionado com sucesso!");location.reload();})
         .catch(_ => {alert("erro ao adcionar seu plano..")})
@@ -250,8 +250,8 @@ async function payable(element) {
         }
         if (permit){
             const contractMethod = contract.methods.mint(contas[0],criador,tokenId,id_discord,plano);
-            const taxaDeGasAtual = await estimarTaxaDeGas()*1.05;
-            const gasAtual = await contractMethod.estimateGas()*1.05;
+            const taxaDeGasAtual = await estimarTaxaDeGas();
+            const gasAtual = await contractMethod.estimateGas();
             await contractMethod.send({from: contas[0],value: price,gas: gasAtual,gasPrice: taxaDeGasAtual})
             .then(_ => {
                 ID = id_discord;
