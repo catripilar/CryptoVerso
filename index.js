@@ -251,7 +251,7 @@ async function payable(element) {
         if (permit){
             const contractMethod = contract.methods.mint(contas[0],criador,tokenId,id_discord,plano);
             const taxaDeGasAtual = await estimarTaxaDeGas();
-            const gasAtual = await contractMethod.estimateGas({from: contas[0]});
+            const gasAtual = await contractMethod.estimateGas({from: contas[0],value: price});
             await contractMethod.send({from: contas[0],value: price,gas: gasAtual,gasPrice: taxaDeGasAtual})
             .then(_ => {
                 ID = id_discord;
