@@ -1,3 +1,2 @@
 # CryptoVerso
-site beta cryptoverso
-https://catripilar.github.io/CryptoVerso/?info=Carlos
+site da implementação do cryptoverso.
