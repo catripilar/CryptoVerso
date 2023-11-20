@@ -197,9 +197,13 @@ async function remove_plan(element) {
         const contractMethod = contract.methods.rmv(infoParam,i);
         const taxaDeGasAtual = await estimarTaxaDeGas();
         const gasAtual = await contractMethod.estimateGas({from: contas[0]});
+        showLoadingPage();
         await contractMethod.send({from: contas[0],gas: gasAtual,gasPrice: taxaDeGasAtual})
         .then(_ => {alert("Plano removido com sucesso!");location.reload();})
-        .catch(_ => {alert("erro ao remover seu plano..")})
+        .catch(_ => {
+            hideLoadingPage();
+            alert("erro ao remover seu plano..")
+        })
     }
 }
 async function add_plan() {
@@ -218,12 +222,16 @@ async function add_plan() {
         Nivel > 0 && uri != "" && Valor >= 0 &&
         Decimal >= 0 && Nivel > Acesso){
         const contas = await web3.eth.getAccounts();
+        showLoadingPage();
         const contractMethod = contract.methods.ads(infoParam,[Cargo,Dias*86400,adicionarZeros(Valor,Decimal),Nivel,Acesso],Quantidade);
         const taxaDeGasAtual = await estimarTaxaDeGas();
         const gasAtual = await contractMethod.estimateGas({from: contas[0]});
         await contractMethod.send({from: contas[0],gas: gasAtual,gasPrice: taxaDeGasAtual})
         .then(_ => {alert("Plano adcionado com sucesso!");location.reload();})
-        .catch(_ => {alert("erro ao adcionar seu plano..")})
+        .catch(_ => {
+            hideLoadingPage();
+            alert("erro ao adcionar seu plano..")
+        })
     }else{
         alert("erro ao ler parâmetros para o novo plano..")
     }
@@ -252,14 +260,20 @@ async function payable(element) {
             const contractMethod = contract.methods.mint(contas[0],criador,tokenId,id_discord,plano);
             const taxaDeGasAtual = await estimarTaxaDeGas();
             const gasAtual = await contractMethod.estimateGas({from: contas[0],value: price});
+            showLoadingPage();
             await contractMethod.send({from: contas[0],value: price,gas: gasAtual,gasPrice: taxaDeGasAtual})
             .then(_ => {
                 ID = id_discord;
                 alert("NFT comprada com sucesso!");
                 location.reload();
             })
-            .catch(_ => {alert("erro ao comprar sua NFT..")})
+            .catch(_ => {
+                hideLoadingPage();
+                alert("erro ao comprar sua NFT..")
+            })
         }
+    }else{
+        alert("erro ao conectar seu discord..")
     }
 }
 function encurtarString(str, comprimentoMaximo) {
@@ -319,4 +333,14 @@ async function estimarTaxaDeGas() {
     } catch (error) {
         console.error('Erro ao estimar a taxa de gás:', error);
     }
+}
+function showLoadingPage() {
+    const loadingPage = document.getElementById("loading-page");
+    loadingPage.style.display = "flex";
+}
+
+function hideLoadingPage() {
+    const loadingPage = document.getElementById("loading-page");
+    loadingPage.style.display = "none";
+
 }
