@@ -55,9 +55,7 @@ async function conectar() {
                 }
             }
             conectado = true;
-            if (window.ethereum && window.ethereum.selectedAddress){
-                connect_data()
-            }
+            connect_data()
         }
     }
 }
