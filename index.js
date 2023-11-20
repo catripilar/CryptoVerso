@@ -194,7 +194,6 @@ async function remove_plan(element) {
         await contractMethod.send({from: contas[0],gas: gasAtual,gasPrice: taxaDeGasAtual})
         .then(_ => {
             hideLoadingPage();
-            alert("Plano removido com sucesso!");
             setTimeout(function() {
                 location.reload()
             }, 2000);
@@ -228,7 +227,6 @@ async function add_plan() {
         await contractMethod.send({from: contas[0],gas: gasAtual,gasPrice: taxaDeGasAtual})
         .then(_ => {
             hideLoadingPage();
-            alert("Plano adcionado com sucesso!");
             setTimeout(function() {
                 location.reload()
             }, 2000);
@@ -269,7 +267,6 @@ async function payable(element) {
             await contractMethod.send({from: contas[0],value: price,gas: gasAtual,gasPrice: taxaDeGasAtual})
             .then(_ => {
                 hideLoadingPage();
-                alert("NFT comprada com sucesso!");
                 setTimeout(function() {
                     location.reload()
                 }, 2000);
