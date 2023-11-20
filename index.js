@@ -50,7 +50,7 @@ async function conectar() {
                     } catch (error) {
                     alert('Erro ao trocar de rede, por favor, conecte-se à rede Polygon para continuar.');
                         console.error('Erro ao trocar de rede:', error.message);
-                        window.reload()
+                        location.reload()
                         return;
                 }
             }
