@@ -55,7 +55,17 @@ async function conectar() {
                 }
             }
             conectado = true;
-            connect_data()
+           window.ethereum.request({ method: 'eth_requestAccounts' })
+            .then((accounts) => {
+                const userAddress = accounts[0];
+                console.log('Connected account:', userAddress);
+                if (window.ethereum && window.ethereum.selectedAddress){
+                    connect_data()
+                }
+            })
+            .catch((error) => {
+                console.error('Error connecting to MetaMask:', error.message);
+            });
         }
     }
 }
