@@ -37,29 +37,21 @@ async function conectar() {
             return;
         }
         if (typeof window.ethereum !== 'undefined') {
-            await window.ethereum.request({ method: 'eth_requestAccounts' });
             const redeAtual = await web3.eth.net.getId();
             /*
-            
-            
-            
-            
             rede
-            rede
-            rede
-            rede
-            rede
-            rede
-            rede
-            
-            
-            
-            
-            
             */
             if (redeAtual !== /*80001*/137) {
-                alert('Por favor, conecte-se à rede Polygon para continuar.');
-                return;
+                try {
+                    await window.ethereum.request({
+                        method: 'wallet_switchEthereumChain',
+                        params: [{ chainId: '0x89' }],
+                    });
+                    } catch (error) {
+                    alert('Erro ao trocar de rede, por favor, conecte-se à rede Polygon para continuar.');
+                        console.error('Erro ao trocar de rede:', error.message);
+                        return;
+                }
             }
             conectado = true;
             if (window.ethereum && window.ethereum.selectedAddress){
@@ -202,7 +194,7 @@ async function remove_plan(element) {
         .then(_ => {
             hideLoadingPage();
             alert("Plano removido com sucesso!");
-            location.reload();
+            conectar()
         })
         .catch(_ => {
             hideLoadingPage();
@@ -234,7 +226,7 @@ async function add_plan() {
         .then(_ => {
             hideLoadingPage();
             alert("Plano adcionado com sucesso!");
-            location.reload();
+            conectar()
         })
         .catch(_ => {
             hideLoadingPage();
@@ -273,7 +265,7 @@ async function payable(element) {
             .then(_ => {
                 hideLoadingPage();
                 alert("NFT comprada com sucesso!");
-                location.reload();
+                conectar()
             })
             .catch(_ => {
                 hideLoadingPage();
