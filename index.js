@@ -197,7 +197,7 @@ async function remove_plan(element) {
             alert("Plano removido com sucesso!");
             setTimeout(function() {
                 location.reload()
-            }, 5000);
+            }, 2000);
         })
         .catch(_ => {
             hideLoadingPage();
@@ -231,7 +231,7 @@ async function add_plan() {
             alert("Plano adcionado com sucesso!");
             setTimeout(function() {
                 location.reload()
-            }, 5000);
+            }, 2000);
         })
         .catch(_ => {
             hideLoadingPage();
@@ -272,7 +272,7 @@ async function payable(element) {
                 alert("NFT comprada com sucesso!");
                 setTimeout(function() {
                     location.reload()
-                }, 5000);
+                }, 2000);
             })
             .catch(_ => {
                 hideLoadingPage();
