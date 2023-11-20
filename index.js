@@ -199,7 +199,11 @@ async function remove_plan(element) {
         const gasAtual = await contractMethod.estimateGas({from: contas[0]});
         showLoadingPage();
         await contractMethod.send({from: contas[0],gas: gasAtual,gasPrice: taxaDeGasAtual})
-        .then(_ => {alert("Plano removido com sucesso!");location.reload();})
+        .then(_ => {
+            hideLoadingPage();
+            alert("Plano removido com sucesso!");
+            location.reload();
+        })
         .catch(_ => {
             hideLoadingPage();
             alert("erro ao remover seu plano..")
@@ -227,7 +231,11 @@ async function add_plan() {
         const taxaDeGasAtual = await estimarTaxaDeGas();
         const gasAtual = await contractMethod.estimateGas({from: contas[0]});
         await contractMethod.send({from: contas[0],gas: gasAtual,gasPrice: taxaDeGasAtual})
-        .then(_ => {alert("Plano adcionado com sucesso!");location.reload();})
+        .then(_ => {
+            hideLoadingPage();
+            alert("Plano adcionado com sucesso!");
+            location.reload();
+        })
         .catch(_ => {
             hideLoadingPage();
             alert("erro ao adcionar seu plano..")
@@ -263,7 +271,7 @@ async function payable(element) {
             showLoadingPage();
             await contractMethod.send({from: contas[0],value: price,gas: gasAtual,gasPrice: taxaDeGasAtual})
             .then(_ => {
-                ID = id_discord;
+                hideLoadingPage();
                 alert("NFT comprada com sucesso!");
                 location.reload();
             })
