@@ -32,6 +32,7 @@ window.onload = () => {
     }
 async function conectar() {
     if (conectado == false){
+        connect_data()
         if (typeof window.ethereum === 'undefined') {
             alert('Por favor, instale o Metamask para continuar.');
             return;
