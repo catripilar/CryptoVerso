@@ -70,11 +70,8 @@ async function conectar() {
     }
 }
 async function connect_data() {
+    
     const contas = await web3.eth.getAccounts();
-    if(!contas){
-        alert('Por favor, conecte-se a uma carteira valida.');
-        return;
-    }
     const infoParam = getURLParameter("info");
     const carteira_string = encurtarString(contas[0],10);
     var creator_exist = true;
@@ -84,51 +81,55 @@ async function connect_data() {
         if (creator == 0x0000000000000000000000000000000000000000){
             creator_exist = false;
         }
-        if (creator == contas[0] && creator_exist == true 
-            || the_owner == contas[0] && creator_exist == true){
-            tokenLevel = 100;
-            document.getElementById("menu").style.display = "block";
-            free = true
+        if(contas){
+            if (creator == contas[0] && creator_exist == true 
+                || the_owner == contas[0] && creator_exist == true){
+                tokenLevel = 100;
+                document.getElementById("menu").style.display = "block";
+                free = true
+            }
         }
       }).catch((error) => {
         creator_exist = false;
         console.error('Erro ao obter planos:', error);
     });
-    const nfts = await contract.methods.balanceOf(contas[0]).call();
-    if(nfts > 0){
-        tokenId = await contract.methods.tokenOfOwnerByIndex(contas[0],0).call();
-        if(tokenId != 0){
-            const nftdata = await contract.methods.NFTData(tokenId).call();
-            tokenIduri = await contract.methods.tokenURI(tokenId).call();
-            const level = nftdata.level;
-            if(tokenLevel < level){
-                tokenLevel = level;
+    if(contas){
+        const nfts = await contract.methods.balanceOf(contas[0]).call();
+        if(nfts > 0){
+            tokenId = await contract.methods.tokenOfOwnerByIndex(contas[0],0).call();
+            if(tokenId != 0){
+                const nftdata = await contract.methods.NFTData(tokenId).call();
+                tokenIduri = await contract.methods.tokenURI(tokenId).call();
+                const level = nftdata.level;
+                if(tokenLevel < level){
+                    tokenLevel = level;
+                }
+                const time = formatUnixTime(nftdata.expired);
+                fetch(tokenIduri).then(response => response.json()).then(data => {
+                    var meunft = document.createElement("div");
+                    meunft.classList.add('conteiner');
+                    meunft.innerHTML = 
+                    `<div class="conteudo">
+                        <h2>Sua NFT:</h2>
+                        <h2>${data.name} Nível ${level}</h2>
+                        <h2>Data de Vencimento: ${time}</h2>
+                        <p>${data.description}</p>
+                    </div>
+                    <div class="imgbx">
+                        <img src=${data.image}>
+                    </div>`;
+                    document.getElementById("sec_owner").appendChild(meunft)
+                    if (nftdata.DiscordId != 0){
+                        ID = nftdata.DiscordId;
+                    }
+                    if (tokenId != 0){
+                        document.getElementById("sec_owner").style.display = "flex";
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar o JSON:', error);
+                });
             }
-            const time = formatUnixTime(nftdata.expired);
-            fetch(tokenIduri).then(response => response.json()).then(data => {
-                var meunft = document.createElement("div");
-                meunft.classList.add('conteiner');
-                meunft.innerHTML = 
-                `<div class="conteudo">
-                    <h2>Sua NFT:</h2>
-                    <h2>${data.name} Nível ${level}</h2>
-                    <h2>Data de Vencimento: ${time}</h2>
-                    <p>${data.description}</p>
-                </div>
-                <div class="imgbx">
-                    <img src=${data.image}>
-                </div>`;
-                document.getElementById("sec_owner").appendChild(meunft)
-                if (nftdata.DiscordId != 0){
-                    ID = nftdata.DiscordId;
-                }
-                if (tokenId != 0){
-                    document.getElementById("sec_owner").style.display = "flex";
-                }
-            })
-            .catch(error => {
-                console.error('Erro ao buscar o JSON:', error);
-            });
         }
     }
     if (infoParam && creator_exist == true) {
@@ -285,7 +286,7 @@ async function payable(element) {
             })
         }
     }else{
-        alert("erro ao conectar seu discord..")
+        alert("erro ao conectar sua carteira ou discord..")
     }
 }
 function encurtarString(str, comprimentoMaximo) {
