@@ -54,13 +54,13 @@ async function conectar() {
                         return;
                 }
             }
-            conectado = true;
            window.ethereum.request({ method: 'eth_requestAccounts' })
             .then((accounts) => {
                 const userAddress = accounts[0];
                 console.log('Connected account:', userAddress);
                 if (window.ethereum && window.ethereum.selectedAddress){
-                    connect_data()
+                    conectado = true;
+                    connect_data();
                 }
             })
             .catch((error) => {
