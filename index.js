@@ -69,6 +69,9 @@ async function conectar() {
         }
     }
 }
+function reload(){
+    location.reload()
+}
 async function connect_data() {
     
     const contas = await web3.eth.getAccounts();
@@ -204,7 +207,7 @@ async function remove_plan(element) {
         .then(_ => {
             hideLoadingPage();
             setTimeout(function() {
-                location.reload()
+                reload();
             }, 2000);
         })
         .catch(_ => {
@@ -237,7 +240,7 @@ async function add_plan() {
         .then(_ => {
             hideLoadingPage();
             setTimeout(function() {
-                location.reload()
+                reload();
             }, 2000);
         })
         .catch(_ => {
@@ -277,7 +280,7 @@ async function payable(element) {
             .then(_ => {
                 hideLoadingPage();
                 setTimeout(function() {
-                    location.reload()
+                    reload();
                 }, 2000);
             })
             .catch(_ => {
