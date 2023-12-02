@@ -175,6 +175,7 @@ async function connect_data() {
                                 <p>${time} DIAS</p>
                             </div>
                         </div>
+                        <a class="botao" href="https://discord.gg/J3TMBhjKyx" target="_blank" style="animation:colorChange 1s linear infinite alternate;background: linear-gradient(#4b7bff, #042631);">Junte-se ao CryptoVerso!</a>
                         ${buy}
                         ${remove}
                         <p>Disponíveis:${disponiveis}</p>
