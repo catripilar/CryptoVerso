@@ -174,6 +174,7 @@ async function connect_data() {
                                 <ins>◷</ins>
                                 <p>${time} DIAS</p>
                             </div>
+                        </div>
                         ${buy}
                         ${remove}
                         <p>Disponíveis:${disponiveis}</p>
