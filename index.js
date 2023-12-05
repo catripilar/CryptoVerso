@@ -32,10 +32,7 @@ window.onload = () => {
     }
 async function conectar() {
     if (conectado == false){
-        if (typeof window.ethereum === 'undefined') {
-            alert('Por favor, instale o Metamask para continuar.');
-            return;
-        }
+        showLoadingPage();
         if (typeof window.ethereum !== 'undefined') {
             const redeAtual = await web3.eth.net.getId();
             /*
@@ -50,6 +47,7 @@ async function conectar() {
                     } catch (error) {
                     alert('Erro ao trocar de rede, por favor, conecte-se à rede Polygon para continuar.');
                         console.error('Erro ao trocar de rede:', error.message);
+                        hideLoadingPage();
                         location.reload()
                         return;
                 }
@@ -65,12 +63,24 @@ async function conectar() {
             })
             .catch((error) => {
                 console.error('Error connecting to MetaMask:', error.message);
+                hideLoadingPage();
+                location.reload()
+                return;
             });
+        }else{
+            hideLoadingPage();
+            alert('Por favor, instale o Metamask para continuar.');
         }
     }
 }
 function reload(){
     location.reload()
+}
+function scrollToEnd() {
+    window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth'
+    });
 }
 async function connect_data() {
     
@@ -97,6 +107,7 @@ async function connect_data() {
         console.error('Erro ao obter planos:', error);
     });
     if(contas){
+        hideLoadingPage();
         const nfts = await contract.methods.balanceOf(contas[0]).call();
         if(nfts > 0){
             tokenId = await contract.methods.tokenOfOwnerByIndex(contas[0],0).call();
@@ -186,6 +197,7 @@ async function connect_data() {
                 });
             }
         }
+        scrollToEnd();
     } else {
         console.log("nao encontrado")
     }
