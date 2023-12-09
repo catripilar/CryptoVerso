@@ -29,7 +29,7 @@ window.onload = () => {
     if (window.ethereum){
         conectar()
     }
-    }
+}
 async function conectar() {
     if (conectado == false){
         showLoadingPage();
@@ -56,7 +56,8 @@ async function conectar() {
                 console.log('Connected account:', userAddress);
                 if (window.ethereum && window.ethereum.selectedAddress){
                     setTimeout(function() {
-                        connect_data()
+                        conectado = true;
+                        connect_data();
                     }, 2000);
                 }
             })
