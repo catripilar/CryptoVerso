@@ -54,14 +54,32 @@
             <p>Primeiro:</p>
             <a class="botao" href="https://discord.gg/J3TMBhjKyx" target="_blank" style="animation:colorChange 1s linear infinite alternate;background: linear-gradient(#4b7bff, #042631);">Junte-se ao CryptoVerso!</a>
             <p>Em seguida:</p>
-            <div class="botao" id="wallet" style="background: #c46200;" onclick="reload()">Conectar Metamask</div>
+            <div class="botao" id="wallet" style="background: #c46200;" onclick="conectar()">Conectar Metamask</div>
             <div class="botao" id="discord" style="background: #4b7bff;" onclick="conectar_discord()">Conectar Discord</div>
             <a href="https://loopipay.com/invite/MEFFR6?utm_source=mgm&utm_medium=referral&utm_campaign=MEFFR6" target="_blank" class="botao" style="background: #000;">Compre MATIC via <strong style="color: #60995F;" >PIX</strong>!</a>
         </div>
     </section>
-    <section class="shop" style="display: none;" id="sec_compra">
+    <section class="shop" id="sec_compra">
+    <div class="card" id="conecw">
+        <img src="https://www.alphafa.com/wp-content/uploads/2018/09/placeholder-square.jpg">
+            <div class="card-content">
+                <h3>NFT Nível 0</h3>
+                <div class="tokenInfo">
+                    <div class="price">
+                        <ins>$</ins>
+                        <p>0 MATIC</p>
+                    </div>
+                    <div class="time">
+                        <ins>◷</ins>
+                        <p>$0 DIAS</p>
+                    </div>
+                </div>
+                <div class="botao" style="background: #c46200;" onclick="conectar()">Conectar Metamask</div>
+                <p>Disponíveis:0</p>
+            </div>
+        </div>
     </section>
-    <section class='mynft' style="display: none;" id="sec_owner">
+    <section class='mynft' id="sec_owner">
         <img src="tothemoon.jpg" class="figbg">
     </section>
 </body>
