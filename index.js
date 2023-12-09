@@ -122,11 +122,11 @@ async function connect_data() {
             const time = formatUnixTime(nftdata.expired);
             tokenIduri = await contract.methods.tokenURI(tokenId).call();
             fetch(tokenIduri).then(response => response.json()).then(data => {
-                var nft_name = data.name
-                var nft_level = level
-                var nft_time = time
-                var nft_desc = data.description
-                var nft_image = data.image
+                nft_name = data.name
+                nft_level = level
+                nft_time = time
+                nft_desc = data.description
+                nft_image = data.image
                 if (nftdata.DiscordId != 0){
                     ID = nftdata.DiscordId;
                 }
