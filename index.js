@@ -55,7 +55,6 @@ async function conectar() {
                 const userAddress = accounts[0];
                 console.log('Connected account:', userAddress);
                 if (window.ethereum && window.ethereum.selectedAddress){
-                    conectado = true;
                     reload();
                 }
             })
@@ -152,7 +151,6 @@ async function connect_data() {
     
     if (infoParam && creator_exist == true) {
         const planos = await contract.methods.Plans(infoParam).call();
-        document.getElementById("sec_compra").style.display = "flex";
         var elementoDiv = document.getElementById('conecw');
         if (elementoDiv) {
             elementoDiv.remove();
