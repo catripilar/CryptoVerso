@@ -46,7 +46,6 @@ async function conectar() {
                     alert('Erro ao trocar de rede, por favor, conecte-se à rede Polygon para continuar.');
                         console.error('Erro ao trocar de rede:', error.message);
                         hideLoadingPage();
-                        location.reload()
                         return;
                 }
             }
@@ -56,20 +55,18 @@ async function conectar() {
                 console.log('Connected account:', userAddress);
                 if (window.ethereum && window.ethereum.selectedAddress){
                     setTimeout(function() {
-                        conectado = true;
-                        connect_data();
+                        reload();
                     }, 2000);
                 }
             })
             .catch((error) => {
                 console.error('Error connecting to MetaMask:', error.message);
                 hideLoadingPage();
-                location.reload()
                 return;
             });
         }else{
             hideLoadingPage();
-            alert('Por favor, instale o Metamask para continuar.');
+            alert('Por favor, instale a Metamask para continuar.');
         }
     }
 }
@@ -83,7 +80,7 @@ function scrollToEnd() {
     });
 }
 async function connect_data() {
-    
+    conectado = true;
     const contas = await web3.eth.getAccounts();
     const infoParam = getURLParameter("info");
     const carteira_string = encurtarString(contas[0],10);
