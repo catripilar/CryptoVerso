@@ -55,7 +55,7 @@ async function conectar() {
                 console.log('Connected account:', userAddress);
                 if (window.ethereum && window.ethereum.selectedAddress){
                     setTimeout(function() {
-                        reload();
+                        connect_data()
                     }, 2000);
                 }
             })
