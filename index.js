@@ -27,7 +27,7 @@ window.onload = () => {
         .catch(error => console.error("Erro ao obter informações do usuário:", error));
     }
     if (window.ethereum){
-        conectar()
+        connect_data()
     }
 }
 async function conectar() {
