@@ -27,7 +27,7 @@ window.onload = () => {
         .catch(error => console.error("Erro ao obter informações do usuário:", error));
     }
     if (window.ethereum){
-        conectar()
+        connect_data()
     }
 }
 async function conectar() {
@@ -55,6 +55,7 @@ async function conectar() {
                 console.log('Connected account:', userAddress);
                 if (window.ethereum && window.ethereum.selectedAddress){
                     setTimeout(function() {
+                        conectado = true;
                         connect_data()
                     }, 2000);
                 }
@@ -80,7 +81,11 @@ function scrollToEnd() {
     });
 }
 async function connect_data() {
-    conectado = true;
+    if(conectado == false){return}
+    const contas = await web3.eth.getAccounts();
+    const infoParam = getURLParameter("info");
+    const carteira_string = encurtarString(contas[0],10);
+    var creator_exist = true;
     document.getElementById('wallet').innerHTML = "Conectado: "+carteira_string;
     const the_owner = await contract.methods.Creator("").call();
     await contract.methods.Creator(infoParam).call().then((creator) => {
