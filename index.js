@@ -35,10 +35,8 @@ async function conectar() {
         showLoadingPage();
         if (typeof window.ethereum !== 'undefined') {
             const redeAtual = await web3.eth.net.getId();
-            /*
-            rede
-            */
-            if (redeAtual !== /*80001*/137) {
+
+            if (redeAtual !== 137) {
                 try {
                     await window.ethereum.request({
                         method: 'wallet_switchEthereumChain',
@@ -58,7 +56,7 @@ async function conectar() {
                 console.log('Connected account:', userAddress);
                 if (window.ethereum && window.ethereum.selectedAddress){
                     conectado = true;
-                    connect_data();
+                    reload();
                 }
             })
             .catch((error) => {
@@ -88,6 +86,12 @@ async function connect_data() {
     const infoParam = getURLParameter("info");
     const carteira_string = encurtarString(contas[0],10);
     var creator_exist = true;
+    var nft_name = "NFT"
+    var nft_level = 0
+    var nft_time = formatUnixTime(getCurrentUnixTime())
+    var nft_desc = "Sobre seu NFT."
+    var nft_image = "https://www.alphafa.com/wp-content/uploads/2018/09/placeholder-square.jpg"
+    
     document.getElementById('wallet').innerHTML = "Conectado: "+carteira_string;
     const the_owner = await contract.methods.Creator("").call();
     await contract.methods.Creator(infoParam).call().then((creator) => {
@@ -108,47 +112,53 @@ async function connect_data() {
     });
     if(contas){
         hideLoadingPage();
-        const nfts = await contract.methods.balanceOf(contas[0]).call();
-        if(nfts > 0){
-            tokenId = await contract.methods.tokenOfOwnerByIndex(contas[0],0).call();
-            if(tokenId != 0){
-                const nftdata = await contract.methods.NFTData(tokenId).call();
-                tokenIduri = await contract.methods.tokenURI(tokenId).call();
-                const level = nftdata.level;
-                if(tokenLevel < level){
-                    tokenLevel = level;
-                }
-                const time = formatUnixTime(nftdata.expired);
-                fetch(tokenIduri).then(response => response.json()).then(data => {
-                    var meunft = document.createElement("div");
-                    meunft.classList.add('conteiner');
-                    meunft.innerHTML = 
-                    `<div class="conteudo">
-                        <h2>Sua NFT:</h2>
-                        <h2>${data.name} Nível ${level}</h2>
-                        <h2>Data de Vencimento: ${time}</h2>
-                        <p>${data.description}</p>
-                    </div>
-                    <div class="imgbx">
-                        <img src=${data.image}>
-                    </div>`;
-                    document.getElementById("sec_owner").appendChild(meunft)
-                    if (nftdata.DiscordId != 0){
-                        ID = nftdata.DiscordId;
-                    }
-                    if (tokenId != 0){
-                        document.getElementById("sec_owner").style.display = "flex";
-                    }
-                })
-                .catch(error => {
-                    console.error('Erro ao buscar o JSON:', error);
-                });
+        tokenId = await contract.methods.tokenOfOwnerByIndex(contas[0],0).call();
+        if(tokenId != 0){
+            const nftdata = await contract.methods.NFTData(tokenId).call();
+            const level = nftdata.level;
+            if(tokenLevel < level){
+                tokenLevel = level;
             }
+            const time = formatUnixTime(nftdata.expired);
+            tokenIduri = await contract.methods.tokenURI(tokenId).call();
+            fetch(tokenIduri).then(response => response.json()).then(data => {
+                var nft_name = data.name
+                var nft_level = level
+                var nft_time = time
+                var nft_desc = data.description
+                var nft_image = data.image
+                if (nftdata.DiscordId != 0){
+                    ID = nftdata.DiscordId;
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao buscar o JSON:', error);
+            });
         }
     }
+    var meunft = document.createElement("div");
+    meunft.classList.add('conteiner');
+    meunft.innerHTML = 
+    `<div class="conteudo">
+        <h2>Sua NFT:</h2>
+        <h2>${nft_name} Nível ${nft_level}</h2>
+        <h2>Data de Vencimento: ${nft_time}</h2>
+        <p>${nft_desc}</p>
+    </div>
+    <div class="imgbx">
+        <img src=${nft_image}>
+    </div>`;
+    document.getElementById("sec_owner").appendChild(meunft)
+    
     if (infoParam && creator_exist == true) {
         const planos = await contract.methods.Plans(infoParam).call();
         document.getElementById("sec_compra").style.display = "flex";
+        var elementoDiv = document.getElementById('conecw');
+        if (elementoDiv) {
+            elementoDiv.remove();
+        } else {
+            console.log("Elemento não encontrado.");
+        }
         for (var i = 0; i < planos[0].length; i++) {
             const price = planos[0][i].amount;
             const level = planos[0][i].level;
@@ -156,6 +166,7 @@ async function connect_data() {
             const acesses = planos[0][i].acesses;
             const disponiveis = planos[1][i];
             const order = i;
+            setTimeout(function() {}, 500);
             const uri = await contract.methods.metadataOfLevel(level).call();
             if (tokenLevel >= acesses){
                 fetch(uri).then(response => response.json()).then(data => {
