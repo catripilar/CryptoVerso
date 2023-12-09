@@ -91,7 +91,7 @@ async function connect_data() {
     var nft_name = "NFT"
     var nft_level = 0
     var nft_time = formatUnixTime(getCurrentUnixTime())
-    var nft_desc = "Sobre seu NFT."
+    var nft_desc = "NFT não encontrado, MINT seu passe para o CryptoVerso logo acima clicando em 'COMPRAR AGORA'!"
     var nft_image = "https://www.alphafa.com/wp-content/uploads/2018/09/placeholder-square.jpg"
     
     document.getElementById('wallet').innerHTML = "Conectado: "+carteira_string;
