@@ -81,16 +81,6 @@ function scrollToEnd() {
 }
 async function connect_data() {
     conectado = true;
-    const contas = await web3.eth.getAccounts();
-    const infoParam = getURLParameter("info");
-    const carteira_string = encurtarString(contas[0],10);
-    var creator_exist = true;
-    var nft_name = "NFT"
-    var nft_level = 0
-    var nft_time = formatUnixTime(getCurrentUnixTime())
-    var nft_desc = "NFT não encontrado, MINT seu passe para o CryptoVerso logo acima clicando em 'COMPRAR AGORA'!"
-    var nft_image = "https://www.alphafa.com/wp-content/uploads/2018/09/placeholder-square.jpg"
-    
     document.getElementById('wallet').innerHTML = "Conectado: "+carteira_string;
     const the_owner = await contract.methods.Creator("").call();
     await contract.methods.Creator(infoParam).call().then((creator) => {
@@ -122,11 +112,25 @@ async function connect_data() {
             const time = formatUnixTime(nftdata.expired);
             tokenIduri = await contract.methods.tokenURI(tokenId).call();
             fetch(tokenIduri).then(response => response.json()).then(data => {
-                nft_name = data.name
-                nft_level = level
-                nft_time = time
-                nft_desc = data.description
-                nft_image = data.image
+                var elementoDiv = document.getElementById('nftw');
+                if (elementoDiv) {
+                    elementoDiv.remove();
+                } else {
+                    console.log("Elemento não encontrado.");
+                }
+                var meunft = document.createElement("div");
+                meunft.classList.add('conteiner');
+                meunft.innerHTML = 
+                `<div class="conteudo">
+                    <h2>Sua NFT:</h2>
+                    <h2>${data.name} Nível ${level}</h2>
+                    <h2>Data de Vencimento: ${time}</h2>
+                    <p>${data.description}</p>
+                </div>
+                <div class="imgbx">
+                    <img src=${data.image}>
+                </div>`;
+                document.getElementById("sec_owner").appendChild(meunft)
                 if (nftdata.DiscordId != 0){
                     ID = nftdata.DiscordId;
                 }
@@ -136,19 +140,6 @@ async function connect_data() {
             });
         }
     }
-    var meunft = document.createElement("div");
-    meunft.classList.add('conteiner');
-    meunft.innerHTML = 
-    `<div class="conteudo">
-        <h2>Sua NFT:</h2>
-        <h2>${nft_name} Nível ${nft_level}</h2>
-        <h2>Data de Vencimento: ${nft_time}</h2>
-        <p>${nft_desc}</p>
-    </div>
-    <div class="imgbx">
-        <img src=${nft_image}>
-    </div>`;
-    document.getElementById("sec_owner").appendChild(meunft)
     
     if (infoParam && creator_exist == true) {
         const planos = await contract.methods.Plans(infoParam).call();
