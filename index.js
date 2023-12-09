@@ -27,7 +27,7 @@ window.onload = () => {
         .catch(error => console.error("Erro ao obter informações do usuário:", error));
     }
     if (window.ethereum){
-        connect_data()
+        conectar()
     }
     }
 async function conectar() {
@@ -55,7 +55,9 @@ async function conectar() {
                 const userAddress = accounts[0];
                 console.log('Connected account:', userAddress);
                 if (window.ethereum && window.ethereum.selectedAddress){
-                    reload();
+                    setTimeout(function() {
+                        connect_data()
+                    }, 2000);
                 }
             })
             .catch((error) => {
