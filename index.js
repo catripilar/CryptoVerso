@@ -113,8 +113,9 @@ async function connect_data() {
     });
     if(contas){
         hideLoadingPage();
-        tokenId = await contract.methods.tokenOfOwnerByIndex(contas[0],0).call();
-        if(tokenId != 0){
+        const aval = await contract.methods.balanceOf(contas[0]).call();
+        if(aval > 0){
+            tokenId = await contract.methods.tokenOfOwnerByIndex(contas[0],0).call();
             const nftdata = await contract.methods.NFTData(tokenId).call();
             const level = nftdata.level;
             if(tokenLevel < level){
