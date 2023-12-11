@@ -23,71 +23,59 @@ section{
     position: relative;
     padding: 100px;
 }
-.banner{
-    position: relative;
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.banner::before{
-    content: '';
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 100px;
-    z-index: 1;
-    background: linear-gradient(to top,#0f0346,transparent);
-}
-.banner .figbg{
-    position: absolute;
+header{
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.6s;
+    padding: 20px;
+    z-index: 10;
 }
-.banner .conteudo{
+header .logo{
     position: relative;
-    max-width: 750px;
-    text-align: center;
-    z-index: 1;
-}
-.banner .conteudo .TextInput{
-    width: 100%;
-    padding: 10px;
-    margin-top: 20px;
+    font-weight: 600;
     color: #fff;
-    background: #00000000;
-    border: 0;
-    border-bottom: 2px solid #fff;
-}
-.banner .conteudo h2{
-    margin: 20px;
-    color: #fff;
+    text-decoration: none;
+    font-size: 2em;
     text-transform: uppercase;
-    border-bottom: 1px solid #fff;
-    font-size: 50px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    line-height: 1.1em;
-    transition: .6s;
+    transition: 0.6s;
 }
-.banner .conteudo p{
-    margin: 20px;
+header.sticky{padding: 10px;background: rgba(0, 0, 0, 0.4);}
+header .option{position: relative;display: flex;}
+header .option li{
+    margin: 0 15px;
+    text-decoration: none;
+    list-style: none;
     color: #fff;
-    text-transform: uppercase;
-    font-size: 1.2em;
     letter-spacing: 2px;
-    transition: .6s;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 8px 15px;
+    border-radius: 40px;
+    transition: 0.6s;
 }
-.banner .conteudo h2:hover{transform: translateY(-10px);letter-spacing: 5px;}
+.waviy {
+    position: relative;
+  }
+  .waviy span {
+    position: relative;
+    display: inline-block;
+    font-size: 20px;
+    color: #fff;
+    text-transform: uppercase;
+    animation: flip 2s infinite;
+    animation-delay: calc(.2s * var(--i))
+  }
+  @keyframes flip {
+    0%,80% {
+      color: rgb(34, 13, 128);
+    }
+  }
 .exmenu {
-    position: absolute;
-    top: 0;
-    right: 0;
     width: 60px;
     height: 60px;
     border-radius: 50%;
@@ -96,7 +84,6 @@ section{
     background-position: center;
     background-size: 30px;
     transition: .3s;
-    z-index: 3;
 }
 .exnav {
     position: absolute;
@@ -118,7 +105,7 @@ section{
     height: fit-content;
     border-radius: 10px;
     padding: 20px;
-    margin: 20px;
+    margin: 20px 0 -50px;
     background: #2b2b2b1a;
     border: 2px solid #ffffff22;
     color: #a89ec9;
@@ -155,7 +142,7 @@ section{
     position: relative;
     width: 100%;
     min-height: 100vh;
-    background: #0f0346;
+    background: linear-gradient(to left, #0f0346, #4e54c8);  
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -341,7 +328,115 @@ section{
     height: 50px;
     animation: spin 1s linear infinite;
 }
+.circles{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
 
+.circles li{
+    position: absolute;
+    display: block;
+    list-style: none;
+    width: 20px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    animation: animate 25s linear infinite;
+    bottom: -150px;
+    
+}
+
+.circles li:nth-child(1){
+    left: 25%;
+    width: 80px;
+    height: 80px;
+    animation-delay: 0s;
+}
+
+
+.circles li:nth-child(2){
+    left: 10%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 2s;
+    animation-duration: 12s;
+}
+
+.circles li:nth-child(3){
+    left: 70%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 4s;
+}
+
+.circles li:nth-child(4){
+    left: 40%;
+    width: 60px;
+    height: 60px;
+    animation-delay: 0s;
+    animation-duration: 18s;
+}
+
+.circles li:nth-child(5){
+    left: 65%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 0s;
+}
+
+.circles li:nth-child(6){
+    left: 75%;
+    width: 110px;
+    height: 110px;
+    animation-delay: 3s;
+}
+
+.circles li:nth-child(7){
+    left: 35%;
+    width: 150px;
+    height: 150px;
+    animation-delay: 7s;
+}
+
+.circles li:nth-child(8){
+    left: 50%;
+    width: 25px;
+    height: 25px;
+    animation-delay: 15s;
+    animation-duration: 45s;
+}
+
+.circles li:nth-child(9){
+    left: 20%;
+    width: 15px;
+    height: 15px;
+    animation-delay: 2s;
+    animation-duration: 35s;
+}
+
+.circles li:nth-child(10){
+    left: 85%;
+    width: 150px;
+    height: 150px;
+    animation-delay: 0s;
+    animation-duration: 11s;
+}
+@keyframes animate {
+    0%{
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+        border-radius: 0;
+    }
+
+    100%{
+        transform: translateY(-2000px) rotate(720deg);
+        opacity: 0;
+        border-radius: 50%;
+    }
+}
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -350,7 +445,7 @@ section{
     0% {color:#4b7bff;}
     100% {color:#fff;}
 }
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width:1100px) {
     section{padding: 40px;}
     .banner .conteudo h2{font-size: 30px;}
     .mynft{flex-direction: column;}
@@ -358,5 +453,40 @@ section{
     .mynft .conteiner{
         flex-direction: column;
         align-items: center;
+    }
+    header .option{display: none;transition: 0.6s;}
+    header .option li{margin-bottom: 5%;}
+    header .option.active{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;   
+        background: rgb(0, 0, 0,0.4);
+        z-index: 1000;
+    }
+    .toggle{
+        position: relative;
+        width: 30px;
+        height: 30px;
+        cursor: pointer;
+        background: url('menu.png');
+        background-size: 30px;
+        background-position: center;
+        background-repeat: no-repeat;
+        transition: 0.3s;
+    }
+    .toggle.active{
+        position: fixed;
+        right: 9%;
+        background: url('close.png');
+        background-size: 25px;
+        background-position: center;
+        background-repeat: no-repeat;
+        z-index: 10000;
     }
 }
