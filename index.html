@@ -11,57 +11,80 @@
     <title>CryptoVerso</title>
 </head>
 <body>
+    <header>
+        <a class='logo' href="#" target="_blank">
+            <div class="waviy">
+                <span style="--i:1">C</span>
+                <span style="--i:2">r</span>
+                <span style="--i:3">y</span>
+                <span style="--i:4">p</span>
+                <span style="--i:5">t</span>
+                <span style="--i:6">o</span>
+                <span style="--i:7">v</span>
+                <span style="--i:8">e</span>
+                <span style="--i:9">r</span>
+                <span style="--i:10">s</span>
+                <span style="--i:11">o</span>
+               </div>
+        </a>
+        <div class='toggle' onclick="menu()"></div>
+        <ul class="option">
+            <li><div class="botao" id="wallet" style="background: #c46200;" onclick="conectar()">Carteira</div></li>
+            <li><a href="https://discord.gg/J3TMBhjKyx" target="_blank" class="botao" id="discord" style="background: #4b7bff;" onclick="conectar_discord()">Discord</a></li>
+            <li><a href="https://loopipay.com/invite/MEFFR6?utm_source=mgm&utm_medium=referral&utm_campaign=MEFFR6" target="_blank" class="botao" style="background: #fff;color: #00c400;">PIX</a></li>
+            <li><div class="exmenu" onclick="exM()" id="menu" style="display: none;"></div></li>
+        </ul>
+    </header>
     <div id="loading-page" class="loading-page">
         <div class="loader"></div>
         <p style="color: #fff;letter-spacing: 1px;padding: 10px;text-transform: uppercase;">Aguarde...</p>
     </div>
-    <section class='banner'>
-        <div class="exmenu" onclick="exM()" id="menu" style="display: none;"></div>
-        <div class="exnav">
-            <div class="content">
-                <h2>Criar novo Plano</h2>
-                <input type="text" oninput="avoidDots(this)" class="TextInput" id="Cargo" placeholder="ID do Cargo" required="Cargo">
-                <input type="text" oninput="avoidDots(this)" class="TextInput" id="Valor" placeholder="Valor em MATIC" required="Valor">
-                
-                <div style="border-top: 1px solid #fff;">
-                    <div class="format">
-                        <label for="Decimal">Decimal do token:</label>
-                        <input type="number" class="TextInput" id="Decimal" name="Decimal" min="6" max="18" value="18">
-                    </div>
-                    <div class="format">
-                        <label for="Dias">Dias de Plano:</label>
-                        <input type="number" class="TextInput" id="Dias" name="Dias" min="1" max="1000" value="30">
-                    </div>
-                    <div class="format">
-                        <label for="Nivel">Nivel do NFT:</label>
-                        <input type="number" class="TextInput" id="Nivel" name="Nivel" min="1" max="10" value="1">
-                    </div>
-                    <div class="format">
-                        <label for="Acesso">Nivel de acesso:</label>
-                        <input type="number" class="TextInput" id="Acesso" name="Acesso" min="0" max="10" value="0">
-                    </div>
-                    <div class="format">
-                        <label for="Quantidade">Quantidade NFTs:</label>
-                        <input type="number" class="TextInput" id="Quantidade" name="Quantidade" min="1" max="1000" value="1">
-                    </div>
-                </div>
-                <div class="botao" style="background: #00c400;" onclick="add_plan()">Adcionar Plano</div>
-            </div>
-        </div>
-        <img src="cryptospace.jpg" class="figbg">
-        <div class="conteudo">
-            <h2>CryptoVerso</h2>
-            <p>Primeiro:</p>
-            <a class="botao" href="https://discord.gg/J3TMBhjKyx" target="_blank" style="animation:colorChange 1s linear infinite alternate;background: linear-gradient(#4b7bff, #042631);">Junte-se ao CryptoVerso!</a>
-            <p>Em seguida:</p>
-            <div class="botao" id="wallet" style="background: #c46200;" onclick="conectar()">Conectar Metamask</div>
-            <div class="botao" id="discord" style="background: #4b7bff;" onclick="conectar_discord()">Conectar Discord</div>
-            <a href="https://loopipay.com/invite/MEFFR6?utm_source=mgm&utm_medium=referral&utm_campaign=MEFFR6" target="_blank" class="botao" style="background: #000;">Compre MATIC via <strong style="color: #60995F;" >PIX</strong>!</a>
-        </div>
-    </section>
     <section class="shop" id="sec_compra">
+    <ul class="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <div class="exnav">
+        <div class="content">
+            <h2>Criar novo Plano</h2>
+            <input type="text" oninput="avoidDots(this)" class="TextInput" id="Cargo" placeholder="ID do Cargo" required="Cargo">
+            <input type="text" oninput="avoidDots(this)" class="TextInput" id="Valor" placeholder="Valor em MATIC" required="Valor">
+            
+            <div style="border-top: 1px solid #fff;">
+                <div class="format">
+                    <label for="Decimal">Decimal do token:</label>
+                    <input type="number" class="TextInput" id="Decimal" name="Decimal" min="6" max="18" value="18">
+                </div>
+                <div class="format">
+                    <label for="Dias">Dias de Plano:</label>
+                    <input type="number" class="TextInput" id="Dias" name="Dias" min="1" max="1000" value="30">
+                </div>
+                <div class="format">
+                    <label for="Nivel">Nivel do NFT:</label>
+                    <input type="number" class="TextInput" id="Nivel" name="Nivel" min="1" max="10" value="1">
+                </div>
+                <div class="format">
+                    <label for="Acesso">Nivel de acesso:</label>
+                    <input type="number" class="TextInput" id="Acesso" name="Acesso" min="0" max="10" value="0">
+                </div>
+                <div class="format">
+                    <label for="Quantidade">Quantidade NFTs:</label>
+                    <input type="number" class="TextInput" id="Quantidade" name="Quantidade" min="1" max="1000" value="1">
+                </div>
+            </div>
+            <div class="botao" style="background: #00c400;" onclick="add_plan()">Adcionar Plano</div>
+        </div>
+    </div>
     <div class="card" id="conecw">
-        <img src="https://www.alphafa.com/wp-content/uploads/2018/09/placeholder-square.jpg">
+        <img src="no_nft.jpg">
             <div class="card-content">
                 <h3>NFT Nível 0</h3>
                 <div class="tokenInfo">
@@ -86,10 +109,10 @@
                 <h2>Sua NFT:</h2>
                 <h2>Nenhuma NFT encontrada..</h2>
                 <h2>Data de Vencimento: Indeterminado..</h2>
-                <p>Escolha seu passe para o CryptoVerso logo acima clicando em 'COMPRAR AGORA'!</p>
+                <p>Conecte sua carteira Metamask e escolha seu passe para o CryptoVerso logo acima clicando em 'COMPRAR AGORA'!</p>
             </div>
             <div class="imgbx">
-                <img src="https://www.alphafa.com/wp-content/uploads/2018/09/placeholder-square.jpg">
+                <img src="no_nft.jpg">
             </div>
         </div>
     </section>
