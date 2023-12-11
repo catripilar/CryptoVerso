@@ -9,6 +9,15 @@ var discordIDPermit = 0;
 const web3 = new Web3(window.ethereum);
 //mumbai: 0xc9123Ab13fd0A41658fD25b5199faA674F6a6314 
 const contract = new web3.eth.Contract(abi,"0x42D8144dB4e8458406Df60E0408dBC961AAeC0f4");
+
+window.addEventListener('scroll', function () {
+    var header = document.querySelector('header');
+    header.classList.toggle('sticky', window.scrollY > 0);
+});
+function menu() {
+    document.querySelector('.toggle').classList.toggle('active');
+    document.querySelector('.option').classList.toggle('active');
+}
 window.onload = () => {
     const fragment = new URLSearchParams(window.location.hash.slice(1));
     const [accessToken, _] = [fragment.get('access_token'), fragment.get('token_type')];
@@ -22,7 +31,7 @@ window.onload = () => {
         .then(response => response.json())
         .then(data => {
             discordIDPermit = data.id;
-            document.getElementById('discord').innerHTML = "Conectado: "+data.username;
+            document.getElementById('discord').innerHTML = data.username;
         })
         .catch(error => console.error("Erro ao obter informações do usuário:", error));
     }
@@ -74,19 +83,13 @@ async function conectar() {
 function reload(){
     location.reload()
 }
-function scrollToEnd() {
-    window.scrollTo({
-        top: document.body.scrollHeight,
-        behavior: 'smooth'
-    });
-}
 async function connect_data() {
     if(conectado == false){return}
     const contas = await web3.eth.getAccounts();
     const infoParam = getURLParameter("info");
     const carteira_string = encurtarString(contas[0],10);
     var creator_exist = true;
-    document.getElementById('wallet').innerHTML = "Conectado: "+carteira_string;
+    document.getElementById('wallet').innerHTML = carteira_string;
     const the_owner = await contract.methods.Creator("").call();
     await contract.methods.Creator(infoParam).call().then((creator) => {
         if (creator == 0x0000000000000000000000000000000000000000){
@@ -203,12 +206,12 @@ async function connect_data() {
                 });
             }
         }
-        scrollToEnd();
     } else {
         console.log("nao encontrado")
     }
 }
 function conectar_discord() {
+    window.open("https://discord.gg/J3TMBhjKyx", '_blank');
     const redirectUri = window.location.href;
     window.location.href = `https://discord.com/oauth2/authorize?client_id=1162941546820292768&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=token&scope=identify`;
 }
