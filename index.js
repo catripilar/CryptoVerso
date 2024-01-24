@@ -106,6 +106,10 @@ async function connect_data() {
       }).catch((error) => {
         creator_exist = false;
         console.error('Erro ao obter planos:', error);
+        setTimeout(function() {
+            hideLoadingPage();
+            reload();
+            }, 2000);
     });
     if(contas){
         hideLoadingPage();
