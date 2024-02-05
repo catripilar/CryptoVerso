@@ -21,8 +21,19 @@ contract CryptoVerso is ERC721URIStorage,ERC721Enumerable {
     address[] parceiros;
     uint8 owner_percent;
     uint8 criador_percent;
-    
-  //modifiers
+
+    mapping(uint => NFTInfo) nft_info;
+    mapping(string => address) criador_addr;
+    mapping(string => Planos[]) criador_planos;
+    mapping(string => uint[]) quantity;
+    mapping(uint => string) uri;
+
+    constructor(uint8 Opercent, uint8 Cpercent) ERC721("CryptoVerso", "CVS") {
+        owner = msg.sender;
+        owner_percent = Opercent;
+        criador_percent = Cpercent;
+    }
+//modifiers
 
     modifier onlyOwner() {
         require(msg.sender == owner, "Only the owner can call this function");
